@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+  
+  --color-wedding-gold: #903A47; /* Soft Burgundy */
+  --color-wedding-cream: #FAF0F2; /* Soft Blush Cream */
+  --color-wedding-sage: #87A96B;
+  --color-wedding-burgundy: #800020;
+}
+
+@layer base {
+  body {
+    @apply bg-wedding-cream text-stone-800 font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Theme Overrides */
+.theme-modern {
+  --color-wedding-gold: #ffffff;
+  --color-wedding-cream: #1a1a1a;
+  --color-wedding-sage: #333333;
+}
+
+.theme-modern body {
+  @apply bg-stone-900 text-stone-100;
+}
+
+.theme-modern .glass-card {
+  @apply bg-stone-800/70 border-stone-700/50;
+}
+
+.theme-sage {
+  --color-wedding-cream: #f4f7f1;
+}
+
+.theme-sage body {
+  @apply bg-[#f4f7f1];
+}
+
+.theme-sage .text-wedding-gold {
+  @apply text-wedding-sage;
+}
+
+.theme-sage .border-wedding-gold {
+  @apply border-wedding-sage;
+}
+
+.theme-sage .bg-wedding-gold {
+  @apply bg-wedding-sage;
+}
+
+.theme-burgundy {
+  --color-wedding-cream: #fff9f9;
+}
+
+.theme-burgundy body {
+  @apply bg-[#fff9f9];
+}
+
+.theme-burgundy .text-wedding-gold {
+  @apply text-wedding-burgundy;
+}
+
+.theme-burgundy .border-wedding-gold {
+  @apply border-wedding-burgundy;
+}
+
+.theme-burgundy .bg-wedding-gold {
+  @apply bg-wedding-burgundy;
+}
+

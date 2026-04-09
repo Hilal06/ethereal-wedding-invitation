@@ -1,0 +1,193 @@
+import React, { useState, useEffect } from 'react';
+import Hero from './components/Hero';
+import Couple from './components/Couple';
+import EventDetails from './components/EventDetails';
+import Gallery from './components/Gallery';
+import RSVPForm from './components/RSVPForm';
+import WelcomeOverlay from './components/WelcomeOverlay';
+import { ThemeProvider, useTheme } from './components/ThemeContext';
+import { Music, Palette, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { WebData, defaultWebData } from './types';
+
+function AppContent() {
+  const { theme, setTheme } = useTheme();
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [showThemePicker, setShowThemePicker] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState<WebData>(defaultWebData);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Auto-convert Google Drive links from /view or /preview to direct image links
+  const sanitizeImageUrl = (url: string | undefined): string | undefined => {
+    if (!url) return url;
+    const match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+    }
+    return url;
+  };
+
+  useEffect(() => {
+    const fetchCMS = async () => {
+      const GOOGLE_SHEET_URL = import.meta.env.VITE_GOOGLE_SHEET_URL;
+      if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL.includes("YOUR_")) {
+        setError("Please add your Google Sheet URL to the .env file.");
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(GOOGLE_SHEET_URL);
+        if (response.ok) {
+          const result = await response.json();
+          setData({
+            settings: { ...defaultWebData.settings, ...result.settings },
+            couple: { 
+              ...defaultWebData.couple, 
+              ...result.couple,
+              groomImage: sanitizeImageUrl(result.couple.groomImage),
+              brideImage: sanitizeImageUrl(result.couple.brideImage)
+            },
+            events: result.events?.length ? result.events : defaultWebData.events,
+            gallery: result.gallery?.length ? result.gallery.map((url: string) => sanitizeImageUrl(url) || "") : defaultWebData.gallery,
+            wishes: result.wishes || []
+          });
+        } else {
+          setError("Failed to fetch data from Google Sheets.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch CMS data:", error);
+        setError("Network error. Could not connect to Google Sheets.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCMS();
+  }, []);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    setIsMusicPlaying(true);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [isOpen]);
+
+  const themes: { id: 'classic' | 'modern' | 'sage' | 'burgundy', name: string, color: string }[] = [
+    { id: 'classic', name: 'Classic Gold', color: '#D4AF37' },
+    { id: 'modern', name: 'Modern Dark', color: '#1a1a1a' },
+    { id: 'sage', name: 'Sage Green', color: '#87A96B' },
+    { id: 'burgundy', name: 'Royal Burgundy', color: '#800020' },
+  ];
+
+  return (
+    <div className="min-h-screen relative">
+      <AnimatePresence>
+        {!isOpen && (
+          <WelcomeOverlay 
+            onOpen={handleOpen} 
+            groomName={data.couple.groomName || ""} 
+            brideName={data.couple.brideName || ""} 
+            isLoading={isLoading}
+            error={error}
+          />
+        )}
+      </AnimatePresence>
+
+      <main className={isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
+        <Hero 
+          groomName={data.couple.groomName || ""} 
+          brideName={data.couple.brideName || ""} 
+          weddingDate={new Date(data.settings.weddingDate || "")} 
+        />
+        
+        <Couple couple={data.couple} settings={data.settings} />
+        
+        <EventDetails events={data.events} />
+        
+        <Gallery images={data.gallery} />
+        
+        <RSVPForm initialWishes={data.wishes} />
+
+        <footer className="py-16 text-center bg-stone-900 text-white">
+          <Heart className="mx-auto mb-6 text-red-500 animate-pulse" fill="currentColor" />
+          <h2 className="text-3xl font-serif mb-4 italic">{data.couple.groomName} & {data.couple.brideName}</h2>
+          <p className="text-stone-400 text-sm tracking-widest uppercase">Thank you for being part of our story</p>
+          <div className="mt-12 text-[10px] opacity-40 tracking-widest uppercase">
+            Made with Love &bull; 2026
+          </div>
+        </footer>
+
+        {/* Floating Controls */}
+        <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+          <button 
+            onClick={() => setIsMusicPlaying(!isMusicPlaying)}
+            className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all ${isMusicPlaying ? 'bg-wedding-gold text-white rotate-12' : 'bg-white text-stone-800'}`}
+          >
+            <Music size={20} className={isMusicPlaying ? 'animate-bounce' : ''} />
+          </button>
+
+          <div className="relative">
+            <button 
+              onClick={() => setShowThemePicker(!showThemePicker)}
+              className="w-12 h-12 bg-white text-stone-800 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+            >
+              <Palette size={20} />
+            </button>
+
+            <AnimatePresence>
+              {showThemePicker && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, x: -20 }}
+                  className="absolute bottom-0 right-16 bg-white p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[150px]"
+                >
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Select Theme</p>
+                  {themes.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => {
+                        setTheme(t.id);
+                        setShowThemePicker(false);
+                      }}
+                      className={`flex items-center gap-3 text-xs font-medium p-2 rounded-lg transition-colors ${theme === t.id ? 'bg-stone-100' : 'hover:bg-stone-50'}`}
+                    >
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: t.color }} />
+                      {t.name}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Hidden Audio Element */}
+        {isMusicPlaying && (
+          <audio autoPlay loop className="hidden">
+            <source src={import.meta.env.VITE_BACKGROUND_MUSIC_URL || "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"} type="audio/mpeg" />
+          </audio>
+        )}
+      </main>
+    </div>
+  );
+}
+
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+}
+
