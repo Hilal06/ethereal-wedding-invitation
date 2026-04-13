@@ -4,6 +4,7 @@ import Couple from './components/Couple';
 import EventDetails from './components/EventDetails';
 import Gallery from './components/Gallery';
 import RSVPForm from './components/RSVPForm';
+import Gift from './components/Gift';
 import WelcomeOverlay from './components/WelcomeOverlay';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import { Music, Palette, Heart } from 'lucide-react';
@@ -42,6 +43,28 @@ function AppContent() {
         const response = await fetch(GOOGLE_SHEET_URL);
         if (response.ok) {
           const result = await response.json();
+          let rawGifts = result.gifts;
+          if (Array.isArray(rawGifts) && rawGifts.length > 0) {
+            rawGifts = rawGifts[0];
+          }
+          
+          let parsedGifts = defaultWebData.gifts;
+          if (rawGifts && (rawGifts.address || rawGifts.bankName1 || rawGifts.bankName2)) {
+            const banks = [];
+            
+            const accNum1 = rawGifts.accountNumber1 || rawGifts.accountNumber;
+            if (rawGifts.bankName1 && accNum1) {
+              banks.push({ bankName: String(rawGifts.bankName1), accountName: String(rawGifts.accountName1 || ''), accountNumber: String(accNum1) });
+            }
+            if (rawGifts.bankName2 && rawGifts.accountNumber2) {
+              banks.push({ bankName: String(rawGifts.bankName2), accountName: String(rawGifts.accountName2 || ''), accountNumber: String(rawGifts.accountNumber2) });
+            }
+            parsedGifts = {
+              address: rawGifts.address || undefined,
+              banks: banks.length > 0 ? banks : undefined
+            };
+          }
+
           setData({
             settings: { ...defaultWebData.settings, ...result.settings },
             couple: { 
@@ -52,7 +75,8 @@ function AppContent() {
             },
             events: result.events?.length ? result.events : defaultWebData.events,
             gallery: result.gallery?.length ? result.gallery.map((url: string) => sanitizeImageUrl(url) || "") : defaultWebData.gallery,
-            wishes: result.wishes || []
+            wishes: result.wishes || [],
+            gifts: parsedGifts
           });
         } else {
           setError("Failed to fetch data from Google Sheets.");
@@ -114,6 +138,8 @@ function AppContent() {
         <EventDetails events={data.events} />
         
         <Gallery images={data.gallery} />
+        
+        {data.gifts && <Gift gifts={data.gifts} />}
         
         <RSVPForm initialWishes={data.wishes} />
 

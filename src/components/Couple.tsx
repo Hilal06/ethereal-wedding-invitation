@@ -11,7 +11,7 @@ interface CoupleProps {
 
 export default function Couple({ couple, settings }: CoupleProps) {
   return (
-    <section className="py-24 px-4 max-w-6xl mx-auto relative bg-wedding-cream">
+    <section className="py-24 px-4 max-w-6xl mx-auto relative bg-wedding-cream overflow-hidden">
       <Flower position="top-left" delay={0.2} className="opacity-40 -z-10" />
       <Flower position="top-right" delay={0.4} className="opacity-40 -z-10" />
 
@@ -34,8 +34,8 @@ export default function Couple({ couple, settings }: CoupleProps) {
         )}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-16 items-center relative z-10">
-        <div className="text-center md:text-right">
+      <div className="grid md:grid-cols-2 gap-16 items-start relative z-10">
+        <div className="flex flex-col items-center text-center">
           <div className="relative inline-block mb-8 mix-blend-multiply">
             <img 
               src={couple.groomImage || "https://images.unsplash.com/photo-1550005816-091e19aba47f?auto=format&fit=crop&q=80&w=400&h=500"} 
@@ -46,15 +46,17 @@ export default function Couple({ couple, settings }: CoupleProps) {
             <Flower position="bottom-left" delay={0.6} className="!w-28 md:!w-40 translate-y-6 -translate-x-4" />
             <Flower position="top-right" delay={0.7} className="!w-24 md:!w-32 -translate-y-4 translate-x-4" />
           </div>
-          <h2 className="text-4xl font-serif mb-2">{couple.groomName}</h2>
-          <Divider className="justify-center md:justify-end" />
-          <p className="text-stone-500 italic mb-4">{couple.groomParents}</p>
-          <p className="text-sm leading-relaxed text-stone-600 max-w-sm ml-auto">
+          <div className="h-24 md:h-40 flex items-center justify-center mb-2">
+            <h2 className="text-5xl md:text-7xl font-script text-wedding-burgundy leading-tight">{couple.groomName}</h2>
+          </div>
+          <Divider className="justify-center" />
+          <p className="text-stone-500 italic mb-4 whitespace-pre-line break-words text-sm md:text-base">{couple.groomParents}</p>
+          <p className="text-sm leading-relaxed text-stone-600 max-w-sm mx-auto whitespace-pre-line break-words">
             {couple.groomQuote}
           </p>
         </div>
 
-        <div className="text-center md:text-left">
+        <div className="flex flex-col items-center text-center">
           <div className="relative inline-block mb-8 mix-blend-multiply">
             <img 
               src={couple.brideImage || "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=500"} 
@@ -65,10 +67,12 @@ export default function Couple({ couple, settings }: CoupleProps) {
             <Flower position="bottom-right" delay={0.8} className="!w-28 md:!w-40 translate-y-6 translate-x-4" />
             <Flower position="top-left" delay={0.9} className="!w-24 md:!w-32 -translate-y-4 -translate-x-4" />
           </div>
-          <h2 className="text-4xl font-serif mb-2">{couple.brideName}</h2>
-          <Divider className="justify-center md:justify-start" />
-          <p className="text-stone-500 italic mb-4">{couple.brideParents}</p>
-          <p className="text-sm leading-relaxed text-stone-600 max-w-sm mr-auto">
+          <div className="h-24 md:h-40 flex items-center justify-center mb-2">
+            <h2 className="text-5xl md:text-7xl font-script text-wedding-burgundy leading-tight">{couple.brideName}</h2>
+          </div>
+          <Divider className="justify-center" />
+          <p className="text-stone-500 italic mb-4 whitespace-pre-line break-words text-sm md:text-base">{couple.brideParents}</p>
+          <p className="text-sm leading-relaxed text-stone-600 max-w-sm mx-auto whitespace-pre-line break-words">
             {couple.brideQuote}
           </p>
         </div>

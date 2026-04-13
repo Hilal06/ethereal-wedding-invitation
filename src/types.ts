@@ -14,6 +14,17 @@ export interface WishType {
   Message: string;
 }
 
+export interface BankAccount {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+}
+
+export interface GiftData {
+  address?: string;
+  banks?: BankAccount[];
+}
+
 export interface WebData {
   settings: {
     weddingDate?: string;
@@ -34,6 +45,7 @@ export interface WebData {
   events: EventType[];
   gallery: string[];
   wishes: WishType[];
+  gifts?: GiftData;
 }
 
 export const defaultWebData: WebData = {
@@ -65,5 +77,12 @@ export const defaultWebData: WebData = {
     "https://images.unsplash.com/photo-1522673607200-1648832cee98?auto=format&fit=crop&q=80&w=800",
     "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800"
   ],
-  wishes: []
+  wishes: [],
+  gifts: {
+    address: 'Jl. Pemuda No. 12, Pulo Gadung, Jakarta Timur',
+    banks: [
+      { bankName: 'BCA', accountName: 'Molly', accountNumber: '1234567890' },
+      { bankName: 'Mandiri', accountName: 'Peter', accountNumber: '0987654321' }
+    ]
+  }
 };

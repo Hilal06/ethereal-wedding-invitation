@@ -55,8 +55,10 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
             <p className="text-stone-400 text-xs italic tracking-widest">Loading from Google Sheets...</p>
           </div>
         ) : (
-          <h1 className="text-5xl md:text-7xl font-serif mb-4 italic">
-            {groomName} <span className="text-2xl md:text-4xl not-italic font-sans">&</span> {brideName}
+          <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-4 italic text-center w-full max-w-2xl mx-auto leading-tight">
+            <span className="text-balance">{groomName}</span>
+            <span className="text-2xl md:text-4xl not-italic font-sans text-wedding-gold my-2">&</span>
+            <span className="text-balance">{brideName}</span>
           </h1>
         )}
         

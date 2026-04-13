@@ -60,11 +60,13 @@ export default function Hero({ weddingDate, groomName, brideName }: HeroProps) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative z-10 text-center text-white px-4"
+        className="relative z-10 text-center text-white px-4 mt-20 md:mt-32"
       >
         <p className="text-lg md:text-xl tracking-[0.3em] uppercase mb-6 font-light">The Wedding of</p>
-        <h1 className="text-6xl md:text-9xl font-serif mb-2 italic">
-          {groomName} <span className="text-4xl md:text-6xl not-italic font-sans">&</span> {brideName}
+        <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-2 italic text-center w-full max-w-4xl mx-auto leading-tight">
+          <span className="text-balance">{groomName}</span>
+          <span className="text-3xl md:text-5xl not-italic font-sans text-wedding-gold my-2">&</span>
+          <span className="text-balance">{brideName}</span>
         </h1>
         
         <Divider />
