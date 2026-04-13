@@ -11,6 +11,16 @@ import { Music, Palette, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { WebData, defaultWebData } from './types';
 
+const GlobalPetal = ({ delay, left, duration }: { delay: number, left: string, duration: number }) => (
+  <motion.div
+    initial={{ y: '-10vh', x: 0, opacity: 0, rotate: 0 }}
+    animate={{ y: '110vh', x: 100, opacity: [0, 0.6, 0.6, 0], rotate: 360 }}
+    transition={{ duration, delay, repeat: Infinity, ease: 'linear' }}
+    className="absolute top-0 w-3 h-4 bg-wedding-gold/40 rounded-[40%_100%_40%_100%] shadow-[0_0_15px_rgba(255,255,255,0.4)] z-0"
+    style={{ left }}
+  />
+);
+
 function AppContent() {
   const { theme, setTheme } = useTheme();
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
@@ -106,10 +116,10 @@ function AppContent() {
   }, [isOpen]);
 
   const themes: { id: 'classic' | 'modern' | 'sage' | 'burgundy', name: string, color: string }[] = [
-    { id: 'classic', name: 'Classic Gold', color: '#D4AF37' },
-    { id: 'modern', name: 'Modern Dark', color: '#1a1a1a' },
-    { id: 'sage', name: 'Sage Green', color: '#87A96B' },
-    { id: 'burgundy', name: 'Royal Burgundy', color: '#800020' },
+    { id: 'classic', name: 'Emas Klasik', color: '#D4AF37' },
+    { id: 'modern', name: 'Gelap Modern', color: '#1a1a1a' },
+    { id: 'sage', name: 'Hijau Sage', color: '#87A96B' },
+    { id: 'burgundy', name: 'Burgundy Mewah', color: '#800020' },
   ];
 
   return (
@@ -125,6 +135,17 @@ function AppContent() {
           />
         )}
       </AnimatePresence>
+
+      {isOpen && (
+        <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
+          <GlobalPetal left="5%" delay={0} duration={20} />
+          <GlobalPetal left="20%" delay={8} duration={25} />
+          <GlobalPetal left="35%" delay={3} duration={22} />
+          <GlobalPetal left="55%" delay={12} duration={26} />
+          <GlobalPetal left="75%" delay={5} duration={19} />
+          <GlobalPetal left="90%" delay={10} duration={24} />
+        </div>
+      )}
 
       <main className={isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
         <Hero 
@@ -146,9 +167,9 @@ function AppContent() {
         <footer className="py-16 text-center bg-stone-900 text-white">
           <Heart className="mx-auto mb-6 text-red-500 animate-pulse" fill="currentColor" />
           <h2 className="text-3xl font-serif mb-4 italic">{data.couple.groomName} & {data.couple.brideName}</h2>
-          <p className="text-stone-400 text-sm tracking-widest uppercase">Thank you for being part of our story</p>
+          <p className="text-stone-400 text-sm tracking-widest uppercase">Terima kasih telah menjadi bagian dari kisah kami</p>
           <div className="mt-12 text-[10px] opacity-40 tracking-widest uppercase">
-            Made with Love &bull; 2026
+            Dibuat dengan Penuh Cinta &bull; 2026
           </div>
         </footer>
 
@@ -177,7 +198,7 @@ function AppContent() {
                   exit={{ opacity: 0, scale: 0.8, x: -20 }}
                   className="absolute bottom-0 right-16 bg-white p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[150px]"
                 >
-                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Select Theme</p>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Pilih Tema</p>
                   {themes.map((t) => (
                     <button
                       key={t.id}

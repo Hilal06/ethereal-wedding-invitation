@@ -5,8 +5,8 @@ export default function Gallery({ images }: { images: string[] }) {
   return (
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto text-center mb-16">
-        <h2 className="text-5xl font-serif mb-6">Our Moments</h2>
-        <p className="text-stone-500 uppercase tracking-widest text-sm">A glimpse into our journey</p>
+        <h2 className="text-5xl font-serif mb-6">Momen Bahagia Kami</h2>
+        <p className="text-stone-500 uppercase tracking-widest text-sm">Kilas balik perjalanan kami</p>
       </div>
 
       <div className="columns-1 md:columns-2 lg:columns-3 gap-4 max-w-6xl mx-auto space-y-4">

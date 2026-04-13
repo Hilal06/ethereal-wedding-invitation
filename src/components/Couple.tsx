@@ -12,6 +12,7 @@ interface CoupleProps {
 export default function Couple({ couple, settings }: CoupleProps) {
   return (
     <section className="py-24 px-4 max-w-6xl mx-auto relative bg-wedding-cream overflow-hidden">
+      {/* Background Decor */}
       <Flower position="top-left" delay={0.2} className="opacity-40 -z-10" />
       <Flower position="top-right" delay={0.4} className="opacity-40 -z-10" />
 
@@ -35,6 +36,12 @@ export default function Couple({ couple, settings }: CoupleProps) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-16 items-start relative z-10">
+        
+        {/* Center Ampersand Watermark (Desktop only) scoped to align with images */}
+        <div className="hidden md:flex absolute top-40 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.07] pointer-events-none select-none">
+           <span className="text-[20rem] font-script text-wedding-burgundy leading-none">&</span>
+        </div>
+
         <div className="flex flex-col items-center text-center">
           <div className="relative inline-block mb-8 mix-blend-multiply">
             <img 

@@ -17,9 +17,9 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
     return (
       <div className="fixed inset-0 z-[100] bg-wedding-cream flex flex-col items-center justify-center text-center px-4">
         <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
-        <p className="text-red-500 font-bold text-xl">Error loading Invitation</p>
+        <p className="text-red-500 font-bold text-xl">Gagal memuat undangan</p>
         <p className="text-stone-500 text-sm mt-2">{error}</p>
-        <p className="text-stone-400 text-xs mt-4 max-w-md">Please make sure your Google Sheet is correctly formatted and your URL is in the .env file.</p>
+        <p className="text-stone-400 text-xs mt-4 max-w-md">Pastikan Google Sheet Anda dikonfigurasi dengan benar dan URL berada di file .env.</p>
       </div>
     );
   }
@@ -47,12 +47,12 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
         transition={{ delay: 0.5, duration: 0.8 }}
         className="relative z-10"
       >
-        <p className="text-stone-500 uppercase tracking-[0.4em] text-xs mb-8">Wedding Invitation</p>
+        <p className="text-stone-500 uppercase tracking-[0.4em] text-xs mb-8">Undangan Pernikahan</p>
         
         {isLoading ? (
           <div className="flex justify-center flex-col items-center h-24 mb-4 gap-4">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-wedding-gold"></div>
-            <p className="text-stone-400 text-xs italic tracking-widest">Loading from Google Sheets...</p>
+            <p className="text-stone-400 text-xs italic tracking-widest">Memuat data...</p>
           </div>
         ) : (
           <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-4 italic text-center w-full max-w-2xl mx-auto leading-tight">
@@ -72,7 +72,7 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
           className="group relative px-8 py-4 bg-stone-800 text-white rounded-full overflow-hidden transition-all hover:pr-12 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className="relative z-10 flex items-center gap-2 uppercase tracking-[0.2em] text-xs">
-            <MailOpen size={16} /> {isLoading ? 'Loading...' : 'Open Invitation'}
+            <MailOpen size={16} /> {isLoading ? 'Memuat...' : 'Buka Undangan'}
           </span>
           <div className="absolute inset-0 bg-wedding-gold translate-x-full group-hover:translate-x-0 transition-transform duration-300 disabled:hidden" />
         </button>

@@ -14,9 +14,9 @@ export default function EventDetails({ events }: { events: EventType[] }) {
       <Flower position="bottom-left" className="opacity-30 -z-10" />
       
       <div className="max-w-4xl mx-auto text-center mb-20 relative z-10">
-        <h2 className="text-5xl font-serif mb-2 text-stone-800">The Celebration</h2>
+        <h2 className="text-5xl font-serif mb-2 text-stone-800">Acara Pernikahan</h2>
         <Divider />
-        <p className="text-wedding-gold uppercase tracking-widest text-sm font-semibold">Join us in our special day</p>
+        <p className="text-wedding-gold uppercase tracking-widest text-sm font-semibold">Bergabunglah di hari bahagia kami</p>
       </div>
 
       <div className={`mx-auto ${isSingle ? 'max-w-4xl' : 'max-w-5xl grid md:grid-cols-2 gap-8'}`}>
@@ -49,7 +49,7 @@ export default function EventDetails({ events }: { events: EventType[] }) {
                   rel="noopener noreferrer"
                   className="inline-block mt-10 px-8 py-3 border border-wedding-gold text-wedding-gold rounded-full hover:bg-wedding-gold hover:text-white transition-all shadow-sm text-sm uppercase tracking-widest font-bold"
                 >
-                  View Map
+                  Lihat Peta
                 </a>
               )}
             </div>
@@ -65,9 +65,9 @@ export default function EventDetails({ events }: { events: EventType[] }) {
                   <div className="w-24 h-24 rounded-full border border-wedding-gold/30 bg-wedding-cream flex items-center justify-center shadow-inner mb-6 relative group overflow-hidden">
                     <Map className="w-10 h-10 text-wedding-gold group-hover:scale-110 transition-transform duration-500" />
                   </div>
-                  <h4 className="font-serif text-3xl mb-3 text-stone-800">Venue Map</h4>
+                  <h4 className="font-serif text-3xl mb-3 text-stone-800">Peta Lokasi</h4>
                   <p className="text-stone-500 text-sm text-center mb-8 max-w-xs leading-relaxed">
-                    Tap to open Google Maps and get direct navigation to our specific venue.
+                    Ketuk untuk membuka Google Maps dan ikuti navigasi ke lokasi acara kami.
                   </p>
                   <a 
                     href={evt.MapURL}
@@ -75,7 +75,7 @@ export default function EventDetails({ events }: { events: EventType[] }) {
                     rel="noopener noreferrer"
                     className="w-full max-w-[200px] text-center px-8 py-4 bg-wedding-gold text-white rounded-full hover:bg-stone-800 transition-all font-bold shadow-lg shadow-wedding-gold/30 text-xs uppercase tracking-[0.2em]"
                   >
-                    Open Map
+                    Buka Peta
                   </a>
               </div>
             )}
