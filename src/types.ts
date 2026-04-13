@@ -41,6 +41,8 @@ export interface WebData {
     brideQuote?: string;
     groomImage?: string;
     brideImage?: string;
+    groomNickName?: string;
+    brideNickName?: string;
   };
   events: EventType[];
   gallery: string[];
@@ -49,7 +51,7 @@ export interface WebData {
 }
 
 export const defaultWebData: WebData = {
-  settings: { 
+  settings: {
     weddingDate: '2026-12-25T08:00:00',
     openingGreeting: 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم\nالسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ',
     openingQuote: '"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."',

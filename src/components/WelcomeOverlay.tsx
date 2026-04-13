@@ -8,11 +8,15 @@ interface WelcomeOverlayProps {
   onOpen: () => void;
   groomName: string;
   brideName: string;
+  groomNickName: string;
+  brideNickName: string;
+  weddingDate?: string;
   isLoading?: boolean;
   error?: string | null;
 }
 
-export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading, error }: WelcomeOverlayProps) {
+export default function WelcomeOverlay({ onOpen, groomName, brideName, groomNickName, brideNickName, weddingDate, isLoading, error }: WelcomeOverlayProps) {
+
   if (error) {
     return (
       <div className="fixed inset-0 z-[100] bg-wedding-cream flex flex-col items-center justify-center text-center px-4">
@@ -25,7 +29,7 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
   }
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: -1000 }}
       transition={{ duration: 1, ease: [0.43, 0.13, 0.23, 0.96] }}
@@ -33,14 +37,14 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
     >
       <Flower position="top-left" delay={0.3} className="opacity-70" />
       <Flower position="bottom-right" delay={0.6} className="opacity-70" />
-      
-      <div 
+
+      <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
           backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")',
         }}
       />
-      
+
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -48,7 +52,7 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
         className="relative z-10"
       >
         <p className="text-stone-500 uppercase tracking-[0.4em] text-xs mb-8">Undangan Pernikahan</p>
-        
+
         {isLoading ? (
           <div className="flex justify-center flex-col items-center h-24 mb-4 gap-4">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-wedding-gold"></div>
@@ -56,17 +60,25 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, isLoading
           </div>
         ) : (
           <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-4 italic text-center w-full max-w-2xl mx-auto leading-tight">
-            <span className="text-balance">{groomName}</span>
+            <span className="text-balance">{groomNickName}</span>
             <span className="text-2xl md:text-4xl not-italic font-sans text-wedding-gold my-2">&</span>
-            <span className="text-balance">{brideName}</span>
+            <span className="text-balance">{brideNickName}</span>
           </h1>
         )}
-        
-        <p className="text-stone-400 font-light tracking-widest mb-4">25 . 12 . 2026</p>
-        
+
+        <p className="text-stone-400 font-light tracking-widest mb-4">
+          {weddingDate ? (() => {
+            const d = new Date(weddingDate);
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            return `${day} . ${month} . ${year}`;
+          })() : 'DD . MM . YYYY'}
+        </p>
+
         <Divider />
-        
-        <button 
+
+        <button
           onClick={onOpen}
           disabled={isLoading}
           className="group relative px-8 py-4 bg-stone-800 text-white rounded-full overflow-hidden transition-all hover:pr-12 disabled:opacity-50 disabled:cursor-not-allowed"

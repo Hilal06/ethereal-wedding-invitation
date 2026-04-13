@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { intervalToDuration } from 'date-fns';
 import Divider from './Divider';
 
 
@@ -16,11 +15,20 @@ export default function Hero({ weddingDate, groomName, brideName }: HeroProps) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const duration = intervalToDuration({
-        start: new Date(),
-        end: weddingDate,
-      });
-      setTimeLeft(duration);
+      const now = new Date();
+      const diffTime = weddingDate.getTime() - now.getTime();
+
+      if (diffTime <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
     }, 1000);
 
     return () => clearInterval(timer);
@@ -57,6 +65,15 @@ export default function Hero({ weddingDate, groomName, brideName }: HeroProps) {
         </h1>
         
         <Divider />
+
+        <div className="mt-8 text-sm md:text-base font-light tracking-widest">
+          {(() => {
+            const day = String(weddingDate.getDate()).padStart(2, '0');
+            const month = String(weddingDate.getMonth() + 1).padStart(2, '0');
+            const year = weddingDate.getFullYear();
+            return `${day} . ${month} . ${year}`;
+          })()}
+        </div>
         
         {timeLeft && (
           <div className="flex gap-4 md:gap-8 justify-center mt-12">

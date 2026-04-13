@@ -57,11 +57,11 @@ function AppContent() {
           if (Array.isArray(rawGifts) && rawGifts.length > 0) {
             rawGifts = rawGifts[0];
           }
-          
+
           let parsedGifts = defaultWebData.gifts;
           if (rawGifts && (rawGifts.address || rawGifts.bankName1 || rawGifts.bankName2)) {
             const banks = [];
-            
+
             const accNum1 = rawGifts.accountNumber1 || rawGifts.accountNumber;
             if (rawGifts.bankName1 && accNum1) {
               banks.push({ bankName: String(rawGifts.bankName1), accountName: String(rawGifts.accountName1 || ''), accountNumber: String(accNum1) });
@@ -77,8 +77,8 @@ function AppContent() {
 
           setData({
             settings: { ...defaultWebData.settings, ...result.settings },
-            couple: { 
-              ...defaultWebData.couple, 
+            couple: {
+              ...defaultWebData.couple,
               ...result.couple,
               groomImage: sanitizeImageUrl(result.couple.groomImage),
               brideImage: sanitizeImageUrl(result.couple.brideImage)
@@ -116,7 +116,6 @@ function AppContent() {
   }, [isOpen]);
 
   const themes: { id: 'classic' | 'modern' | 'sage' | 'burgundy', name: string, color: string }[] = [
-    { id: 'classic', name: 'Emas Klasik', color: '#D4AF37' },
     { id: 'modern', name: 'Gelap Modern', color: '#1a1a1a' },
     { id: 'sage', name: 'Hijau Sage', color: '#87A96B' },
     { id: 'burgundy', name: 'Burgundy Mewah', color: '#800020' },
@@ -126,10 +125,13 @@ function AppContent() {
     <div className="min-h-screen relative">
       <AnimatePresence>
         {!isOpen && (
-          <WelcomeOverlay 
-            onOpen={handleOpen} 
-            groomName={data.couple.groomName || ""} 
-            brideName={data.couple.brideName || ""} 
+          <WelcomeOverlay
+            onOpen={handleOpen}
+            groomName={data.couple.groomName || ""}
+            brideName={data.couple.brideName || ""}
+            groomNickName={data.couple.groomNickName || ""}
+            brideNickName={data.couple.brideNickName || ""}
+            weddingDate={data.settings.weddingDate}
             isLoading={isLoading}
             error={error}
           />
@@ -148,20 +150,20 @@ function AppContent() {
       )}
 
       <main className={isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
-        <Hero 
-          groomName={data.couple.groomName || ""} 
-          brideName={data.couple.brideName || ""} 
-          weddingDate={new Date(data.settings.weddingDate || "")} 
+        <Hero
+          groomName={data.couple.groomName || ""}
+          brideName={data.couple.brideName || ""}
+          weddingDate={new Date(data.settings.weddingDate || "")}
         />
-        
+
         <Couple couple={data.couple} settings={data.settings} />
-        
+
         <EventDetails events={data.events} />
-        
+
         <Gallery images={data.gallery} />
-        
+
         {data.gifts && <Gift gifts={data.gifts} />}
-        
+
         <RSVPForm initialWishes={data.wishes} />
 
         <footer className="py-16 text-center bg-stone-900 text-white">
@@ -175,7 +177,7 @@ function AppContent() {
 
         {/* Floating Controls */}
         <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
-          <button 
+          <button
             onClick={() => setIsMusicPlaying(!isMusicPlaying)}
             className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all ${isMusicPlaying ? 'bg-wedding-gold text-white rotate-12' : 'bg-white text-stone-800'}`}
           >
@@ -183,7 +185,7 @@ function AppContent() {
           </button>
 
           <div className="relative">
-            <button 
+            <button
               onClick={() => setShowThemePicker(!showThemePicker)}
               className="w-12 h-12 bg-white text-stone-800 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
             >
@@ -192,7 +194,7 @@ function AppContent() {
 
             <AnimatePresence>
               {showThemePicker && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.8, x: -20 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.8, x: -20 }}
