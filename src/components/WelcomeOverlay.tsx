@@ -51,7 +51,7 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, groomNick
         transition={{ delay: 0.5, duration: 0.8 }}
         className="relative z-10"
       >
-        <p className="text-stone-500 uppercase tracking-[0.4em] text-xs mb-8">Undangan Pernikahan</p>
+        <p className="text-stone-500 uppercase tracking-[0.4em] text-xs mb-8">Undangan</p>
 
         {isLoading ? (
           <div className="flex justify-center flex-col items-center h-24 mb-4 gap-4">
@@ -59,10 +59,8 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, groomNick
             <p className="text-stone-400 text-xs italic tracking-widest">Memuat data...</p>
           </div>
         ) : (
-          <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-4 italic text-center w-full max-w-2xl mx-auto leading-tight">
-            <span className="text-balance">{groomNickName}</span>
-            <span className="text-2xl md:text-4xl not-italic font-sans text-wedding-gold my-2">&</span>
-            <span className="text-balance">{brideNickName}</span>
+          <h1 className="text-7xl md:text-9xl font-script text-wedding-burgundy mb-6 text-center leading-tight">
+            Akad Nikah
           </h1>
         )}
 

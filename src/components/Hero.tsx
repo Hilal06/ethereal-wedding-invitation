@@ -41,7 +41,7 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: 'url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80")',
@@ -55,13 +55,13 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative z-10 text-center text-white px-4 mt-20 md:mt-32"
       >
-        <p className="text-lg md:text-xl tracking-[0.3em] uppercase mb-6 font-light">Pernikahan</p>
+        <p className="text-lg md:text-xl tracking-[0.3em] uppercase mb-6 font-light">Akad Nikah</p>
         <div className="flex flex-col items-center mb-6 text-center w-full max-w-4xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-serif italic leading-tight text-balance mb-2">
             {groomName}
@@ -77,7 +77,7 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
           {brideParents && <p className="text-sm md:text-base tracking-[0.2em] uppercase text-stone-300 mb-2">{brideParents}</p>}
           {brideQuote && <p className="text-xs md:text-sm font-light text-white/80 max-w-md text-balance italic whitespace-pre-line">{brideQuote}</p>}
         </div>
-        
+
         <Divider />
 
         <div className="mt-8 text-sm md:text-base font-light tracking-widest">
@@ -88,7 +88,7 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
             return `${day} . ${month} . ${year}`;
           })()}
         </div>
-        
+
         {timeLeft && (
           <div className="flex gap-4 md:gap-8 justify-center mt-12">
             {[
@@ -104,8 +104,8 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
             ))}
           </div>
         )}
-        
-        <motion.div 
+
+        <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="mt-20"

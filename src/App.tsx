@@ -172,9 +172,9 @@ function AppContent() {
 
         <footer className="py-16 text-center bg-stone-900 text-white">
           <Heart className="mx-auto mb-6 text-red-500 animate-pulse" fill="currentColor" />
-          <h2 className="text-3xl font-serif mb-4 italic">{data.couple.groomName} & {data.couple.brideName}</h2>
-          <p className="text-stone-400 text-sm tracking-widest uppercase">Terima kasih telah menjadi bagian dari kisah kami</p>
-          <div className="mt-12 text-[10px] opacity-40 tracking-widest uppercase">
+          <h2 className="text-5xl md:text-6xl font-script mb-4 text-wedding-gold">{data.couple.groomNickName} & {data.couple.brideNickName}</h2>
+          <p className="text-wedding-cream/90 text-sm tracking-widest uppercase drop-shadow-sm">Terima kasih telah menjadi bagian dari kisah kami</p>
+          <div className="mt-12 text-[10px] text-wedding-cream/60 tracking-widest uppercase">
             Dibuat dengan Penuh Cinta &bull; 2026
           </div>
         </footer>
@@ -187,41 +187,6 @@ function AppContent() {
           >
             <Music size={20} className={isMusicPlaying ? 'animate-bounce' : ''} />
           </button>
-
-          <div className="relative">
-            <button
-              onClick={() => setShowThemePicker(!showThemePicker)}
-              className="w-12 h-12 bg-white text-stone-800 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
-            >
-              <Palette size={20} />
-            </button>
-
-            <AnimatePresence>
-              {showThemePicker && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, x: -20 }}
-                  className="absolute bottom-0 right-16 bg-white p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[150px]"
-                >
-                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Pilih Tema</p>
-                  {themes.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => {
-                        setTheme(t.id);
-                        setShowThemePicker(false);
-                      }}
-                      className={`flex items-center gap-3 text-xs font-medium p-2 rounded-lg transition-colors ${theme === t.id ? 'bg-stone-100' : 'hover:bg-stone-50'}`}
-                    >
-                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: t.color }} />
-                      {t.name}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
         </div>
 
         {/* Hidden Audio Element */}

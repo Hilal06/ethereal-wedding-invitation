@@ -7,6 +7,31 @@ interface GiftProps {
   gifts: GiftData;
 }
 
+const BankIcon = ({ bankName }: { bankName: string }) => {
+  const [imgError, setImgError] = useState(false);
+  const normalized = bankName.toLowerCase().trim();
+  let src = null;
+  
+  if (normalized.includes('bca')) src = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg';
+  else if (normalized.includes('mandiri')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg';
+  else if (normalized.includes('bni')) src = 'https://upload.wikimedia.org/wikipedia/en/thumb/2/27/BankNegaraIndonesia46-logo.svg/1200px-BankNegaraIndonesia46-logo.svg.png';
+  else if (normalized.includes('bri')) src = 'https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg';
+  else if (normalized.includes('bsi')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Bank_Syariah_Indonesia.svg';
+  else if (normalized.includes('cimb')) src = 'https://upload.wikimedia.org/wikipedia/commons/3/38/CIMB_Niaga_logo.svg';
+  else if (normalized.includes('permata')) src = 'https://upload.wikimedia.org/wikipedia/commons/f/f8/PermataBank_logo.svg';
+  else if (normalized.includes('jenius')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Jenius-logo.svg';
+  else if (normalized.includes('ovo')) src = 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Ovo_Purple.svg';
+  else if (normalized.includes('gopay')) src = 'https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg';
+  else if (normalized.includes('dana')) src = 'https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg';
+  else if (normalized.includes('jago')) src = 'https://upload.wikimedia.org/wikipedia/commons/9/90/Bank_Jago_logo.svg';
+  else if (normalized.includes('seabank')) src = 'https://upload.wikimedia.org/wikipedia/commons/f/f4/SeaBank_logo.png';
+
+  if (src && !imgError) {
+    return <img src={src} alt={bankName} className="h-6 object-contain mb-3 drop-shadow-sm" onError={() => setImgError(true)} />;
+  }
+  return <CreditCard className="w-6 h-6 text-wedding-gold mb-3" />;
+};
+
 export default function Gift({ gifts }: GiftProps) {
   const [copiedBank, setCopiedBank] = useState<string | null>(null);
 
@@ -68,8 +93,8 @@ export default function Gift({ gifts }: GiftProps) {
             <div className="flex flex-col gap-4 w-full">
               {gifts.banks.map((bank, index) => (
                 <div key={index} className="glass-card rounded-2xl p-6 flex flex-col items-center relative overflow-hidden group">
-                  <CreditCard className="w-6 h-6 text-wedding-gold mb-3" />
-                  <h4 className="font-bold text-stone-800">{bank.bankName}</h4>
+                  <BankIcon bankName={bank.bankName} />
+                  <h4 className="sr-only">{bank.bankName}</h4>
                   <p className="text-stone-500 text-sm mb-1">{bank.accountName}</p>
                   <p className="text-xl font-mono text-wedding-burgundy mb-4 tracking-wider">{bank.accountNumber}</p>
 
