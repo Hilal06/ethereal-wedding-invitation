@@ -8,9 +8,13 @@ interface HeroProps {
   weddingDate: Date;
   groomName: string;
   brideName: string;
+  groomParents?: string;
+  brideParents?: string;
+  groomQuote?: string;
+  brideQuote?: string;
 }
 
-export default function Hero({ weddingDate, groomName, brideName }: HeroProps) {
+export default function Hero({ weddingDate, groomName, brideName, groomParents, brideParents, groomQuote, brideQuote }: HeroProps) {
   const [timeLeft, setTimeLeft] = useState<any>(null);
 
   useEffect(() => {
@@ -58,11 +62,21 @@ export default function Hero({ weddingDate, groomName, brideName }: HeroProps) {
         className="relative z-10 text-center text-white px-4 mt-20 md:mt-32"
       >
         <p className="text-lg md:text-xl tracking-[0.3em] uppercase mb-6 font-light">Pernikahan</p>
-        <h1 className="flex flex-col items-center gap-2 text-5xl md:text-7xl font-serif mb-2 italic text-center w-full max-w-4xl mx-auto leading-tight">
-          <span className="text-balance">{groomName}</span>
-          <span className="text-3xl md:text-5xl not-italic font-sans text-wedding-gold my-2">&</span>
-          <span className="text-balance">{brideName}</span>
-        </h1>
+        <div className="flex flex-col items-center mb-6 text-center w-full max-w-4xl mx-auto">
+          <h2 className="text-5xl md:text-7xl font-serif italic leading-tight text-balance mb-2">
+            {groomName}
+          </h2>
+          {groomParents && <p className="text-sm md:text-base tracking-[0.2em] uppercase text-stone-300 mb-2">{groomParents}</p>}
+          {groomQuote && <p className="text-xs md:text-sm font-light text-white/80 max-w-md text-balance italic whitespace-pre-line mb-6">{groomQuote}</p>}
+
+          <span className="text-3xl md:text-5xl font-sans text-wedding-gold my-4">&</span>
+
+          <h2 className="text-5xl md:text-7xl font-serif italic leading-tight text-balance mb-2 mt-4">
+            {brideName}
+          </h2>
+          {brideParents && <p className="text-sm md:text-base tracking-[0.2em] uppercase text-stone-300 mb-2">{brideParents}</p>}
+          {brideQuote && <p className="text-xs md:text-sm font-light text-white/80 max-w-md text-balance italic whitespace-pre-line">{brideQuote}</p>}
+        </div>
         
         <Divider />
 

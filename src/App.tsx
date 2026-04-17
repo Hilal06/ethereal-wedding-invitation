@@ -154,6 +154,10 @@ function AppContent() {
           groomName={data.couple.groomName || ""}
           brideName={data.couple.brideName || ""}
           weddingDate={new Date(data.settings.weddingDate || "")}
+          groomParents={data.couple.groomParents}
+          brideParents={data.couple.brideParents}
+          groomQuote={data.couple.groomQuote}
+          brideQuote={data.couple.brideQuote}
         />
 
         <Couple couple={data.couple} settings={data.settings} />

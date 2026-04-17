@@ -17,7 +17,7 @@ export default function Couple({ couple, settings }: CoupleProps) {
       <Flower position="top-right" delay={0.4} className="opacity-40 -z-10" />
 
       {/* Opening Quote Section */}
-      <div className="max-w-3xl mx-auto text-center mb-24 relative z-10 px-4">
+      <div className="max-w-3xl mx-auto text-center relative z-10 px-4">
         {settings.openingGreeting && (
            <h3 className="text-3xl md:text-5xl text-wedding-gold mb-8 font-serif leading-relaxed whitespace-pre-line" dir="auto">
              {settings.openingGreeting}
@@ -29,60 +29,10 @@ export default function Couple({ couple, settings }: CoupleProps) {
           </p>
         )}
         {settings.openingQuoteSource && (
-          <p className="text-stone-500 text-xs font-bold tracking-widest uppercase mb-16">
+          <p className="text-stone-500 text-xs font-bold tracking-widest uppercase">
             {settings.openingQuoteSource}
           </p>
         )}
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-16 items-start relative z-10">
-        
-        {/* Center Ampersand Watermark (Desktop only) scoped to align with images */}
-        <div className="hidden md:flex absolute top-40 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.07] pointer-events-none select-none">
-           <span className="text-[20rem] font-script text-wedding-burgundy leading-none">&</span>
-        </div>
-
-        <div className="flex flex-col items-center text-center">
-          <div className="relative inline-block mb-8 mix-blend-multiply">
-            <img 
-              src={couple.groomImage || "https://images.unsplash.com/photo-1550005816-091e19aba47f?auto=format&fit=crop&q=80&w=400&h=500"} 
-              alt={couple.groomName}
-              className="w-64 h-80 object-cover rounded-t-full border-4 border-wedding-gold/30"
-              referrerPolicy="no-referrer"
-            />
-            <Flower position="bottom-left" delay={0.6} className="!w-28 md:!w-40 translate-y-6 -translate-x-4" />
-            <Flower position="top-right" delay={0.7} className="!w-24 md:!w-32 -translate-y-4 translate-x-4" />
-          </div>
-          <div className="h-24 md:h-40 flex items-center justify-center mb-2">
-            <h2 className="text-5xl md:text-7xl font-script text-wedding-burgundy leading-tight">{couple.groomName}</h2>
-          </div>
-          <Divider className="justify-center" />
-          <p className="text-stone-500 italic mb-4 whitespace-pre-line break-words text-sm md:text-base">{couple.groomParents}</p>
-          <p className="text-sm leading-relaxed text-stone-600 max-w-sm mx-auto whitespace-pre-line break-words">
-            {couple.groomQuote}
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center text-center">
-          <div className="relative inline-block mb-8 mix-blend-multiply">
-            <img 
-              src={couple.brideImage || "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=500"} 
-              alt={couple.brideName}
-              className="w-64 h-80 object-cover rounded-t-full border-4 border-wedding-gold/30"
-              referrerPolicy="no-referrer"
-            />
-            <Flower position="bottom-right" delay={0.8} className="!w-28 md:!w-40 translate-y-6 translate-x-4" />
-            <Flower position="top-left" delay={0.9} className="!w-24 md:!w-32 -translate-y-4 -translate-x-4" />
-          </div>
-          <div className="h-24 md:h-40 flex items-center justify-center mb-2">
-            <h2 className="text-5xl md:text-7xl font-script text-wedding-burgundy leading-tight">{couple.brideName}</h2>
-          </div>
-          <Divider className="justify-center" />
-          <p className="text-stone-500 italic mb-4 whitespace-pre-line break-words text-sm md:text-base">{couple.brideParents}</p>
-          <p className="text-sm leading-relaxed text-stone-600 max-w-sm mx-auto whitespace-pre-line break-words">
-            {couple.brideQuote}
-          </p>
-        </div>
       </div>
     </section>
   );
