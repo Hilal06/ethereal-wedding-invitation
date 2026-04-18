@@ -59,8 +59,26 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, groomNick
             <p className="text-stone-400 text-xs italic tracking-widest">Memuat data...</p>
           </div>
         ) : (
-          <h1 className="text-7xl md:text-9xl font-script text-wedding-burgundy mb-6 text-center leading-tight">
-            Akad Nikah
+          <h1 className="text-7xl md:text-9xl font-script text-wedding-burgundy mb-6 text-center leading-tight flex justify-center flex-wrap gap-x-4">
+            {"Akad Nikah".split(' ').map((word, wordIdx) => (
+              <span key={wordIdx} className="inline-block">
+                {word.split('').map((char, charIdx) => (
+                  <motion.span
+                    key={charIdx}
+                    initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                    animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                    transition={{ 
+                      duration: 1.2, 
+                      delay: 0.8 + (wordIdx * 4 + charIdx) * 0.1, 
+                      ease: [0.2, 0.65, 0.3, 0.9] 
+                    }}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
           </h1>
         )}
 

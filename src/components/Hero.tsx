@@ -92,18 +92,25 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
         </div>
 
         {timeLeft && (
-          <div className="flex gap-4 md:gap-8 justify-center mt-12">
-            {[
-              { label: 'Hari', value: timeLeft.days },
-              { label: 'Jam', value: timeLeft.hours },
-              { label: 'Menit', value: timeLeft.minutes },
-              { label: 'Detik', value: timeLeft.seconds },
-            ].map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <span className="text-3xl md:text-5xl font-serif">{item.value ?? 0}</span>
-                <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-80">{item.label}</span>
-              </div>
-            ))}
+          <div className="flex justify-center mt-12 px-4">
+            <div className="flex items-center gap-4 md:gap-8">
+              {[
+                { label: 'Hari', value: timeLeft.days },
+                { label: 'Jam', value: timeLeft.hours },
+                { label: 'Menit', value: timeLeft.minutes },
+                { label: 'Detik', value: timeLeft.seconds },
+              ].map((item, idx, arr) => (
+                <React.Fragment key={idx}>
+                  <div className="flex flex-col items-center min-w-[3rem] md:min-w-[4rem]">
+                    <span className="text-4xl md:text-5xl font-serif text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] mb-2">{item.value ?? 0}</span>
+                    <span className="text-[10px] md:text-xs uppercase tracking-widest text-white/80">{item.label}</span>
+                  </div>
+                  {idx < arr.length - 1 && (
+                    <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         )}
 

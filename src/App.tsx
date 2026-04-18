@@ -181,12 +181,26 @@ function AppContent() {
 
         {/* Floating Controls */}
         <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
-          <button
-            onClick={() => setIsMusicPlaying(!isMusicPlaying)}
-            className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all ${isMusicPlaying ? 'bg-wedding-gold text-white rotate-12' : 'bg-white text-stone-800'}`}
-          >
-            <Music size={20} className={isMusicPlaying ? 'animate-bounce' : ''} />
-          </button>
+          <div className="relative group">
+            {/* Ripple effect */}
+            {isMusicPlaying && (
+              <div className="absolute inset-0 rounded-full border-2 border-wedding-gold animate-ripple pointer-events-none" />
+            )}
+            <button
+              onClick={() => setIsMusicPlaying(!isMusicPlaying)}
+              className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 overflow-hidden ${isMusicPlaying ? 'bg-wedding-gold text-white' : 'bg-white text-stone-800 hover:scale-110'}`}
+              title={isMusicPlaying ? "Pause Music" : "Play Music"}
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Music size={20} className={`transition-transform duration-1000 ${isMusicPlaying ? 'animate-[spin_4s_linear_infinite]' : ''}`} />
+              </div>
+              
+              {/* Vinyl record rings effect */}
+              {isMusicPlaying && (
+                <div className="absolute inset-0 rounded-full border-[8px] border-black/10 pointer-events-none mix-blend-overlay" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Hidden Audio Element */}
