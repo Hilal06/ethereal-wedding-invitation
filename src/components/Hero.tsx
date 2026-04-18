@@ -41,7 +41,9 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
   return (
     <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div
+      <motion.div
+        animate={{ scale: [1, 1.15] }}
+        transition={{ duration: 30, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: 'url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80")',
@@ -50,7 +52,7 @@ export default function Hero({ weddingDate, groomName, brideName, groomParents, 
         }}
       >
         <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
-      </div>
+      </motion.div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
       </div>

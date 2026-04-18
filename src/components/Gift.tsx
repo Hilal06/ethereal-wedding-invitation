@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { Gift as GiftIcon, Copy, CheckCircle, MapPin, CreditCard } from 'lucide-react';
 import { GiftData } from '../types';
 import Divider from './Divider';
@@ -79,20 +80,33 @@ export default function Gift({ gifts }: GiftProps) {
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center">
           {/* Address Box */}
           {gifts.address && (
-            <div className="glass-card rounded-2xl p-8 flex flex-col items-center h-full justify-center min-h-[200px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="glass-card rounded-2xl p-8 flex flex-col items-center h-full justify-center min-h-[200px] bg-white/60 backdrop-blur-md"
+            >
               <MapPin className="w-8 h-8 text-wedding-sage mb-4" />
               <h3 className="text-xl font-serif text-wedding-burgundy mb-4">Kirim Hadiah</h3>
               <p className="text-stone-600 leading-relaxed max-w-[250px] whitespace-pre-wrap">
                 {gifts.address}
               </p>
-            </div>
+            </motion.div>
           )}
 
           {/* Banks */}
           {gifts.banks && gifts.banks.length > 0 && (
             <div className="flex flex-col gap-4 w-full">
               {gifts.banks.map((bank, index) => (
-                <div key={index} className="glass-card rounded-2xl p-6 flex flex-col items-center relative overflow-hidden group">
+                <motion.div 
+                  key={index} 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  className="glass-card rounded-2xl p-6 flex flex-col items-center relative overflow-hidden group bg-white/60 backdrop-blur-md"
+                >
                   <BankIcon bankName={bank.bankName} />
                   <h4 className="sr-only">{bank.bankName}</h4>
                   <p className="text-stone-500 text-sm mb-1">{bank.accountName}</p>
@@ -108,7 +122,7 @@ export default function Gift({ gifts }: GiftProps) {
                       <><Copy size={14} /> Salin Nomor</>
                     )}
                   </button>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}

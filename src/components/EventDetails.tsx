@@ -23,8 +23,12 @@ export default function EventDetails({ events }: { events: EventType[] }) {
         {events.map((evt, idx) => (
           <motion.div 
             key={idx}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: idx * 0.2 }}
             whileHover={{ y: -5 }}
-            className={`glass-card p-10 md:p-14 rounded-[3rem] bg-white/60 shadow-lg border border-white/50 ${isSingle ? 'flex flex-col md:flex-row items-center md:items-start md:gap-16 relative overflow-hidden' : 'text-center'}`}
+            className={`glass-card p-10 md:p-14 rounded-[3rem] bg-white/60 backdrop-blur-md shadow-lg border border-white/50 ${isSingle ? 'flex flex-col md:flex-row items-center md:items-start md:gap-16 relative overflow-hidden' : 'text-center'}`}
           >
             {/* Details Side */}
             <div className={`flex-1 ${isSingle ? 'text-center md:text-left z-10 w-full' : ''}`}>

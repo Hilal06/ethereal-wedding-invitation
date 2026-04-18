@@ -17,7 +17,13 @@ export default function Couple({ couple, settings }: CoupleProps) {
       <Flower position="top-right" delay={0.4} className="opacity-40 -z-10" />
 
       {/* Opening Quote Section */}
-      <div className="max-w-3xl mx-auto text-center relative z-10 px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1 }}
+        className="max-w-3xl mx-auto text-center relative z-10 px-4"
+      >
         {settings.openingGreeting && (
            <h3 className="text-3xl md:text-5xl text-wedding-gold mb-8 font-serif leading-relaxed whitespace-pre-line" dir="auto">
              {settings.openingGreeting}
@@ -33,7 +39,7 @@ export default function Couple({ couple, settings }: CoupleProps) {
             {settings.openingQuoteSource}
           </p>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }

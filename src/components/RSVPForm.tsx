@@ -73,7 +73,13 @@ export default function RSVPForm({ initialWishes }: { initialWishes: WishType[] 
       
       <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 relative z-10">
         {/* Form Side */}
-        <div className="glass-card p-8 md:p-12 rounded-[40px] h-fit">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="glass-card p-8 md:p-12 rounded-[40px] h-fit bg-white/60 backdrop-blur-md"
+        >
           <div className="text-center mb-10">
             <h2 className="text-4xl font-serif mb-4">RSVP</h2>
             <p className="text-stone-500 text-sm italic">Konfirmasi kehadiran Anda</p>
@@ -149,7 +155,7 @@ export default function RSVPForm({ initialWishes }: { initialWishes: WishType[] 
               <Send size={16} /> Kirim RSVP
             </button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Wishes List Side */}
         <div className="flex flex-col">
