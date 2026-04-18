@@ -24,19 +24,19 @@ export default function EventDetails({ events }: { events: EventType[] }) {
           <motion.div 
             key={idx}
             whileHover={{ y: -5 }}
-            className={`glass-card p-10 md:p-14 rounded-[3rem] bg-white/60 shadow-lg border border-white/50 ${isSingle ? 'flex flex-col md:flex-row items-center md:gap-16 relative overflow-hidden' : 'text-center'}`}
+            className={`glass-card p-10 md:p-14 rounded-[3rem] bg-white/60 shadow-lg border border-white/50 ${isSingle ? 'flex flex-col md:flex-row items-center md:items-start md:gap-16 relative overflow-hidden' : 'text-center'}`}
           >
             {/* Details Side */}
             <div className={`flex-1 ${isSingle ? 'text-center md:text-left z-10 w-full' : ''}`}>
-              <div className={`w-20 h-20 bg-wedding-cream rounded-full flex items-center justify-center shadow-inner ${isSingle ? 'mb-8 mx-auto md:mx-0' : 'mx-auto mb-8'}`}>
-                {idx === 0 ? <Calendar className="text-wedding-gold w-10 h-10" /> : <Clock className="text-wedding-gold w-10 h-10" />}
+              <div className={`w-20 h-20 bg-wedding-cream rounded-full border border-wedding-gold/30 flex items-center justify-center shadow-inner relative group overflow-hidden ${isSingle ? 'mb-8 mx-auto md:mx-0' : 'mx-auto mb-8'}`}>
+                {idx === 0 ? <Calendar className="text-wedding-gold w-10 h-10 group-hover:scale-110 transition-transform duration-500" /> : <Clock className="text-wedding-gold w-10 h-10 group-hover:scale-110 transition-transform duration-500" />}
               </div>
               <h3 className="text-4xl font-serif mb-6 text-wedding-gold italic">{evt.Name}</h3>
               <div className={`space-y-4 text-stone-700 font-medium ${isSingle ? '' : 'flex flex-col items-center'}`}>
-                <p className={`flex items-center gap-4 text-lg ${isSingle ? 'justify-center md:justify-start' : 'justify-center'}`}>
+                <p className={`flex items-center gap-3 text-lg ${isSingle ? 'justify-center md:justify-start' : 'justify-center'}`}>
                   <Clock className="text-wedding-gold/70" size={20} /> {evt.Time}
                 </p>
-                <p className={`flex items-center gap-4 text-lg leading-relaxed max-w-sm ${isSingle ? 'justify-center md:justify-start mx-auto md:mx-0' : 'justify-center mx-auto'}`}>
+                <p className={`flex items-center gap-3 text-lg leading-relaxed max-w-sm ${isSingle ? 'justify-center md:justify-start mx-auto md:mx-0' : 'justify-center mx-auto'}`}>
                   <MapPin className="text-wedding-gold/70 flex-shrink-0" size={20} /> 
                   <span className={isSingle ? "text-center md:text-left" : "text-center"}>{evt.Location}</span>
                 </p>
@@ -56,13 +56,13 @@ export default function EventDetails({ events }: { events: EventType[] }) {
 
             {/* Visual Divider for Single Event */}
             {isSingle && evt.MapURL && evt.MapURL !== '#' && (
-               <div className="hidden md:block w-[1px] h-48 bg-gradient-to-b from-transparent via-wedding-gold/30 to-transparent" />
+               <div className="hidden md:block w-[1px] h-48 bg-gradient-to-b from-transparent via-wedding-gold/30 to-transparent self-center" />
             )}
 
             {/* Map Action Side for Single Event */}
             {isSingle && evt.MapURL && evt.MapURL !== '#' && (
               <div className="flex-1 w-full flex flex-col justify-center items-center mt-10 md:mt-0 pt-10 md:pt-0 border-t md:border-t-0 border-wedding-gold/20 relative z-10">
-                  <div className="w-24 h-24 rounded-full border border-wedding-gold/30 bg-wedding-cream flex items-center justify-center shadow-inner mb-6 relative group overflow-hidden">
+                  <div className="w-20 h-20 rounded-full border border-wedding-gold/30 bg-wedding-cream flex items-center justify-center shadow-inner mb-6 relative group overflow-hidden">
                     <Map className="w-10 h-10 text-wedding-gold group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   <h4 className="font-serif text-3xl mb-3 text-stone-800">Peta Lokasi</h4>
