@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Gift as GiftIcon, Copy, CheckCircle, MapPin, CreditCard } from 'lucide-react';
 import { GiftData } from '../types';
 import Divider from './Divider';
@@ -114,13 +114,33 @@ export default function Gift({ gifts }: GiftProps) {
 
                   <button
                     onClick={() => handleCopy(bank.accountNumber, bank.bankName)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-wedding-sage text-xs uppercase tracking-widest text-wedding-sage hover:bg-wedding-sage hover:text-white transition-colors"
+                    className="flex items-center justify-center min-w-[140px] gap-2 px-4 py-2 rounded-full border border-wedding-sage text-xs uppercase tracking-widest text-wedding-sage hover:bg-wedding-sage hover:text-white transition-colors"
                   >
-                    {copiedBank === bank.bankName ? (
-                      <><CheckCircle size={14} /> Disalin</>
-                    ) : (
-                      <><Copy size={14} /> Salin Nomor</>
-                    )}
+                    <AnimatePresence mode="wait" initial={false}>
+                      {copiedBank === bank.bankName ? (
+                        <motion.div 
+                          key="copied"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-2"
+                        >
+                          <CheckCircle size={14} /> Disalin
+                        </motion.div>
+                      ) : (
+                        <motion.div 
+                          key="copy"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-2"
+                        >
+                          <Copy size={14} /> Salin Nomor
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </button>
                 </motion.div>
               ))}

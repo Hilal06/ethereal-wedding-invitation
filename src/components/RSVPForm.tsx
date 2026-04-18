@@ -85,37 +85,43 @@ export default function RSVPForm({ initialWishes }: { initialWishes: WishType[] 
             <p className="text-stone-500 text-sm italic">Konfirmasi kehadiran Anda</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Nama Lengkap</label>
+          <form onSubmit={handleSubmit} className="space-y-8 mt-4">
+            <div className="grid grid-cols-2 gap-8">
+              <div className="relative">
                 <input 
                   type="text" 
+                  id="name"
                   required
-                  className="w-full bg-white/60 backdrop-blur-sm border-b border-stone-200 py-3 focus:outline-none focus:border-wedding-gold transition-colors"
-                  placeholder="Nama Anda"
+                  className="peer w-full bg-transparent border-b border-stone-200 py-3 text-stone-800 focus:outline-none focus:border-wedding-gold transition-colors placeholder-transparent"
+                  placeholder="Nama Lengkap"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                 />
+                <label htmlFor="name" className="absolute left-0 -top-3.5 text-[10px] md:text-xs uppercase tracking-widest text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:-top-3.5 peer-focus:text-[10px] md:peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-wedding-gold pointer-events-none">
+                  Nama Lengkap
+                </label>
               </div>
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Email</label>
+              <div className="relative">
                 <input 
                   type="email" 
+                  id="email"
                   required
-                  className="w-full bg-white/60 backdrop-blur-sm border-b border-stone-200 py-3 focus:outline-none focus:border-wedding-gold transition-colors"
-                  placeholder="Email Anda"
+                  className="peer w-full bg-transparent border-b border-stone-200 py-3 text-stone-800 focus:outline-none focus:border-wedding-gold transition-colors placeholder-transparent"
+                  placeholder="Email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
+                <label htmlFor="email" className="absolute left-0 -top-3.5 text-[10px] md:text-xs uppercase tracking-widest text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:-top-3.5 peer-focus:text-[10px] md:peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-wedding-gold pointer-events-none">
+                  Email
+                </label>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Kehadiran</label>
+            <div className="grid grid-cols-2 gap-8 pt-2">
+              <div className="relative">
+                <label className="absolute left-0 -top-3.5 text-[10px] md:text-xs uppercase tracking-widest text-stone-500 pointer-events-none">Kehadiran</label>
                 <select 
-                  className="w-full bg-white/60 backdrop-blur-sm border-b border-stone-200 py-3 focus:outline-none focus:border-wedding-gold transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-3 text-stone-800 focus:outline-none focus:border-wedding-gold transition-colors appearance-none cursor-pointer"
                   value={formData.attendance}
                   onChange={(e) => setFormData({...formData, attendance: e.target.value})}
                 >
@@ -123,10 +129,10 @@ export default function RSVPForm({ initialWishes }: { initialWishes: WishType[] 
                   <option value="no">Tidak Hadir</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Jumlah Tamu</label>
+              <div className="relative">
+                <label className="absolute left-0 -top-3.5 text-[10px] md:text-xs uppercase tracking-widest text-stone-500 pointer-events-none">Jumlah Tamu</label>
                 <select 
-                  className="w-full bg-white/60 backdrop-blur-sm border-b border-stone-200 py-3 focus:outline-none focus:border-wedding-gold transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-3 text-stone-800 focus:outline-none focus:border-wedding-gold transition-colors appearance-none cursor-pointer"
                   value={formData.guests}
                   onChange={(e) => setFormData({...formData, guests: e.target.value})}
                 >
@@ -136,16 +142,19 @@ export default function RSVPForm({ initialWishes }: { initialWishes: WishType[] 
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2">Ucapan & Doa</label>
+            <div className="relative pt-2">
               <textarea 
+                id="message"
                 rows={4}
                 required
-                className="w-full bg-white/60 backdrop-blur-sm border-b border-stone-200 py-3 focus:outline-none focus:border-wedding-gold transition-colors resize-none"
-                placeholder="Tulis ucapan hangat Anda..."
+                className="peer w-full bg-transparent border-b border-stone-200 py-3 text-stone-800 focus:outline-none focus:border-wedding-gold transition-colors resize-none placeholder-transparent"
+                placeholder="Ucapan & Doa"
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
               />
+              <label htmlFor="message" className="absolute left-0 -top-3.5 text-[10px] md:text-xs uppercase tracking-widest text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:-top-3.5 peer-focus:text-[10px] md:peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-wedding-gold pointer-events-none">
+                Ucapan & Doa
+              </label>
             </div>
 
             <button 
