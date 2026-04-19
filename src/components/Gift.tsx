@@ -12,20 +12,19 @@ const BankIcon = ({ bankName }: { bankName: string }) => {
   const [imgError, setImgError] = useState(false);
   const normalized = bankName.toLowerCase().trim();
   let src = null;
-  
+
   if (normalized.includes('bca')) src = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg';
   else if (normalized.includes('mandiri')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg';
-  else if (normalized.includes('bni')) src = 'https://upload.wikimedia.org/wikipedia/en/thumb/2/27/BankNegaraIndonesia46-logo.svg/1200px-BankNegaraIndonesia46-logo.svg.png';
+  else if (normalized.includes('bni')) src = 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Bank_Negara_Indonesia_logo_%282004%29.svg';
   else if (normalized.includes('bri')) src = 'https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg';
   else if (normalized.includes('bsi')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Bank_Syariah_Indonesia.svg';
   else if (normalized.includes('cimb')) src = 'https://upload.wikimedia.org/wikipedia/commons/3/38/CIMB_Niaga_logo.svg';
-  else if (normalized.includes('permata')) src = 'https://upload.wikimedia.org/wikipedia/commons/f/f8/PermataBank_logo.svg';
-  else if (normalized.includes('jenius')) src = 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Jenius-logo.svg';
-  else if (normalized.includes('ovo')) src = 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Ovo_Purple.svg';
+  else if (normalized.includes('jenius')) src = 'https://upload.wikimedia.org/wikipedia/id/8/89/Jenius-logo.png';
+  else if (normalized.includes('ovo')) src = 'https://cdn.worldvectorlogo.com/logos/ovo-1.svg';
   else if (normalized.includes('gopay')) src = 'https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg';
   else if (normalized.includes('dana')) src = 'https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg';
-  else if (normalized.includes('jago')) src = 'https://upload.wikimedia.org/wikipedia/commons/9/90/Bank_Jago_logo.svg';
-  else if (normalized.includes('seabank')) src = 'https://upload.wikimedia.org/wikipedia/commons/f/f4/SeaBank_logo.png';
+  else if (normalized.includes('jago')) src = 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Logo-jago.svg';
+  else if (normalized.includes('seabank')) src = 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Seabank-logo.webp';
 
   if (src && !imgError) {
     return <img src={src} alt={bankName} className="h-6 object-contain mb-3 drop-shadow-sm" onError={() => setImgError(true)} />;
@@ -74,13 +73,13 @@ export default function Gift({ gifts }: GiftProps) {
         <p className="text-stone-500 font-light mb-8 max-w-2xl mx-auto">
           Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami. Namun, jika Anda ingin memberikan tanda kasih, Anda dapat mengirimkannya melalui detail di bawah ini.
         </p>
-        
+
         <Divider />
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center">
           {/* Address Box */}
           {gifts.address && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -99,8 +98,8 @@ export default function Gift({ gifts }: GiftProps) {
           {gifts.banks && gifts.banks.length > 0 && (
             <div className="flex flex-col gap-4 w-full">
               {gifts.banks.map((bank, index) => (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -118,7 +117,7 @@ export default function Gift({ gifts }: GiftProps) {
                   >
                     <AnimatePresence mode="wait" initial={false}>
                       {copiedBank === bank.bankName ? (
-                        <motion.div 
+                        <motion.div
                           key="copied"
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
@@ -129,7 +128,7 @@ export default function Gift({ gifts }: GiftProps) {
                           <CheckCircle size={14} /> Disalin
                         </motion.div>
                       ) : (
-                        <motion.div 
+                        <motion.div
                           key="copy"
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
