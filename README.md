@@ -116,6 +116,19 @@ The resulting files will be generated in the `dist` folder, which is ready to be
 
 ---
 
+## 🌐 Deployment
+
+### Deploying to Vercel (Recommended)
+
+1. **Push to GitHub**: Ensure your project is in a GitHub repository.
+2. **Import to Vercel**: Connect your GitHub account to [Vercel](https://vercel.com) and import the repo.
+3. **Configure Environment Variables**: In the Vercel dashboard, go to **Settings > Environment Variables** and add:
+   - `VITE_GOOGLE_SHEET_URL`
+   - `VITE_BACKGROUND_MUSIC_URL`
+4. **Deploy**: Hit the deploy button! Vercel will handle the build process automatically.
+
+---
+
 <div align="center">
   <i>Created with ❤️ for your special day.</i>
 </div>
