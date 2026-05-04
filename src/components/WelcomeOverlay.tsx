@@ -83,7 +83,7 @@ export default function WelcomeOverlay({ onOpen, groomName, brideName, groomNick
         )}
 
         <p className="text-stone-400 font-light tracking-widest mb-4">
-          {weddingDate ? (() => {
+          {(!isLoading && weddingDate) ? (() => {
             const d = new Date(weddingDate);
             const day = String(d.getDate()).padStart(2, '0');
             const month = String(d.getMonth() + 1).padStart(2, '0');
