@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/Headless_CMS-Google_Sheets-34A853?logo=googlesheets&logoColor=white" alt="Google Sheets" />
 </div>
 
-<br />
+This project uses **Google Sheets as a Headless CMS**, meaning you can effortlessly update names, dates, quotes, events, and your image gallery simply by updating cells in a spreadsheet without touching a single line of code!.
 
 A beautifully crafted, highly responsive, and elegant digital wedding invitation. Ethereal brings a romantic and cinematic experience to your guests before the big day even arrives. 
 
