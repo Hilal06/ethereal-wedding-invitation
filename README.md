@@ -2,7 +2,7 @@
 
 A beautiful, highly responsive, and elegant digital wedding invitation built with React, Vite, Tailwind CSS, and Framer Motion. 
 
-This project uses **Google Sheets as a Headless CMS**, meaning you can effortlessly update names, dates, quotes, events, and your image gallery simply by updating cells in a spreadsheet without touching a single line of code!
+This project uses **Google Sheets as a Headless CMS**, meaning you can effortlessly update names, dates, quotes, events, and your image gallery simply by updating cells in a spreadsheet without touching a single line of code!.
 
 ## Features
 - ✨ **Ethereal & Romantic Design**: Premium floating floral accents, sophisticated typography, and soft palettes crafted for modern weddings.
