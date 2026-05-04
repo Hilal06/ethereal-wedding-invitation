@@ -14,7 +14,7 @@ A beautifully crafted, highly responsive, and elegant digital wedding invitation
 
 The best part? This project uses **Google Sheets as a Headless CMS**. You can effortlessly update names, dates, quotes, events, RSVP data, and your image gallery simply by updating cells in a spreadsheet—without touching a single line of code!
 
----
+----
 
 ## 📸 Screenshot
 
