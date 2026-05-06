@@ -18,7 +18,7 @@ export default function Gallery({ images }: { images: string[] }) {
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
             whileHover={{ scale: 1.03, y: -5 }}
-            className="relative group aspect-[4/5] rounded-2xl overflow-hidden shadow-lg"
+            className="relative group aspect-[3/2] rounded-2xl overflow-hidden shadow-lg"
           >
             <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
             <img
