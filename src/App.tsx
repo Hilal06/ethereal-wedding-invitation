@@ -7,7 +7,7 @@ import RSVPForm from './components/RSVPForm';
 import Gift from './components/Gift';
 import WelcomeOverlay from './components/WelcomeOverlay';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
-import { Music, Palette, Heart } from 'lucide-react';
+import { Music, Palette, Heart, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { WebData, defaultWebData } from './types';
 
@@ -174,8 +174,20 @@ function AppContent() {
           <Heart className="mx-auto mb-6 text-red-500 animate-pulse" fill="currentColor" />
           <h2 className="text-5xl md:text-6xl font-script mb-4 text-wedding-gold">{data.couple.groomNickName} & {data.couple.brideNickName}</h2>
           <p className="text-wedding-cream/90 text-sm tracking-widest uppercase drop-shadow-sm">Terima kasih telah menjadi bagian dari kisah kami</p>
-          <div className="mt-12 text-[10px] text-wedding-cream/60 tracking-widest uppercase">
-            Dibuat dengan Penuh Cinta &bull; 2026
+          <div className="mt-12 flex flex-col items-center gap-2">
+            <p className="text-[10px] text-wedding-cream/60 tracking-widest uppercase">
+              Made with Love by &bull; @Hilal06
+            </p>
+            <a 
+              href="https://github.com/Hilal06/ethereal-wedding-invitation" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center gap-1.5 text-xs text-wedding-cream/40 font-light hover:text-wedding-cream/80 transition-all duration-300 mt-1 no-underline"
+            >
+              <Sparkles className="w-3 h-3 text-wedding-gold opacity-50 group-hover:opacity-100 group-hover:animate-pulse transition-opacity" />
+              <span>Digital Invitation Project by <strong className="font-medium text-wedding-gold/80 group-hover:text-wedding-gold tracking-widest transition-colors">Olok.inc</strong></span>
+              <Sparkles className="w-3 h-3 text-wedding-gold opacity-50 group-hover:opacity-100 group-hover:animate-pulse transition-opacity" />
+            </a>
           </div>
         </footer>
 
@@ -194,7 +206,7 @@ function AppContent() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <Music size={20} className={`transition-transform duration-1000 ${isMusicPlaying ? 'animate-[spin_4s_linear_infinite]' : ''}`} />
               </div>
-              
+
               {/* Vinyl record rings effect */}
               {isMusicPlaying && (
                 <div className="absolute inset-0 rounded-full border-[8px] border-black/10 pointer-events-none mix-blend-overlay" />
