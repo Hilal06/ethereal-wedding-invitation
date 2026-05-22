@@ -33,12 +33,6 @@
   <img src="https://via.placeholder.com/1000x500.png?text=Ethereal+Wedding+Invitation+Screenshot+Here" alt="Ethereal Wedding Invitation Screenshot" width="100%" />
 </div>
 
-## 🚀 Live Demo
-
-**[View Live Demo Here](#)** *(Replace this link with your actual deployed website url!)*
-
----
-
 ## 🛠️ Architecture
 
 This project leverages modern frontend technologies combined with a lightweight, serverless backend approach:
