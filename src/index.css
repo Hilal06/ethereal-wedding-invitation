@@ -1,121 +1,765 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Tenor+Sans&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Montserrat", sans-serif;
-  --font-script: "Great Vibes", cursive;
+  --font-serif: "EB Garamond", serif;
+  --font-sans: "Tenor Sans", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-script: "Pinyon Script", cursive;
+  --font-typewriter: "Courier Prime", monospace;
   
-  --color-wedding-gold: #903A47; /* Soft Burgundy */
-  --color-wedding-cream: #FAF0F2; /* Soft Blush Cream */
-  --color-wedding-sage: #87A96B;
-  --color-wedding-burgundy: #800020;
+  --color-wedding-gold: #8C1C2E; /* Trifold Wine Red / Wax Accent */
+  --color-wedding-cream: #EAE1D5; /* Parchment Background */
+  --color-wedding-sage: #5A6B54;
+  --color-wedding-charcoal: #2F241F; /* Sepia Letterpress Ink */
+  --color-wedding-sand: #D8CCC0;
+  --color-wedding-paper: #FDFBF7; /* Cotton Rag Paper */
 }
 
 @layer base {
   body {
-    @apply bg-wedding-cream text-stone-800 font-sans;
+    background-color: var(--color-wedding-cream);
+    color: var(--color-wedding-charcoal);
+    font-family: var(--font-serif);
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    font-family: var(--font-display);
   }
 }
 
-.glass-card {
-  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+/* Texture & Letter Utilities */
+.parchment-texture {
+  background-color: #EAE1D5;
+  background-image: 
+    radial-gradient(rgba(47, 36, 31, 0.04) 1px, transparent 0),
+    linear-gradient(rgba(216, 204, 192, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px, 100% 28px;
+}
+
+.trifold-letter-card {
+  background-color: #FDFBF7;
+  border: 1px solid #DFD5C8;
+  border-radius: 4px;
+  box-shadow: 
+    0 1px 3px rgba(47, 36, 31, 0.08),
+    0 8px 24px rgba(47, 36, 31, 0.12),
+    0 16px 36px -8px rgba(47, 36, 31, 0.15);
+  position: relative;
+}
+
+/* Crease fold lines for letter simulation */
+.crease-line {
+  border-top: 2px dashed #D6C8B6;
+  position: relative;
+  margin: 1.5rem 0;
+}
+.crease-line::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(180deg, rgba(47, 36, 31, 0.03) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Perforated Postage Stamp */
+.postage-stamp-box {
+  width: 68px;
+  height: 82px;
+  background: #FFF;
+  border: 2px dashed #A63041;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 2px 3px 8px rgba(47, 36, 31, 0.15);
+  transform: rotate(3deg);
+  position: relative;
+}
+
+/* Postage Stamp & Cancellation Staggered Animation */
+@keyframes stagger-slide-lines {
+  0% { opacity: 0; transform: translateX(-16px); }
+  100% { opacity: 0.7; transform: translateX(0); }
+}
+@keyframes stagger-roll-circle {
+  0% { opacity: 0; transform: scale(0.8) rotate(-30deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes stagger-drop-stamp {
+  0% { opacity: 0; transform: translateY(-16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.cancellation-lines-animated {
+  animation: stagger-slide-lines 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.postmark-circle-animated {
+  animation: stagger-roll-circle 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+.postage-stamp-animated {
+  animation: stagger-drop-stamp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cancellation-lines-animated,
+  .postmark-circle-animated,
+  .postage-stamp-animated {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Postal Stamp Countdown Timer Tiles */
+.stamp-tile {
+  position: relative;
+  background-color: #FDFBF7;
+  border: 1.5px dashed #8C1C2E;
+  box-shadow: 2px 3px 8px rgba(47, 36, 31, 0.12);
+  transition: transform 0.3s ease;
+}
+.stamp-tile:hover {
+  transform: translateY(-2px) rotate(0deg) !important;
+}
+.stamp-num {
+  font-family: 'Courier Prime', monospace;
+  color: #8C1C2E;
+  letter-spacing: -0.05em;
+}
+.stamp-label {
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.2em;
+  color: #6B5E55;
+}
+
+/* Airmail Ribbon Border Stripes */
+.airmail-ribbon {
+  background: repeating-linear-gradient(
+    -45deg,
+    #8C1C2E,
+    #8C1C2E 12px,
+    #FDFBF7 12px,
+    #FDFBF7 18px,
+    #2E4A62,
+    #2E4A62 30px,
+    #FDFBF7 30px,
+    #FDFBF7 36px
+  );
+  height: 6px;
+  width: 100%;
+}
+
+/* Realistic Wax Seal Badge */
+.wax-seal {
+  background: radial-gradient(circle at 35% 35%, #B32035, #630F1C);
+  border: 2px solid #851222;
+  box-shadow: 
+    0 6px 16px rgba(99, 15, 28, 0.45),
+    inset 0 2px 4px rgba(255, 255, 255, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wax-seal:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Vintage Paperclip Effect */
+.brass-paperclip {
+  width: 14px;
+  height: 38px;
+  border: 2.5px solid #C5A059;
+  border-radius: 8px;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.25);
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  z-index: 20;
+}
+
+/* Postmark Circular Stamp */
+.postmark-circle {
+  border: 1.5px solid #8C1C2E;
+  border-radius: 50%;
+  color: #8C1C2E;
+  font-family: 'Courier Prime', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+
+/* ========================================================
+   AUTHENTIC ENVELOPE & POSTAL STATIONERY REFINEMENTS
+   ======================================================== */
+
+/* Envelope V-Flap for Welcome Screen */
+.envelope-v-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(135deg, #F4ECE1 0%, #E8DEC8 50%, #DDD2BC 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  box-shadow: 0 8px 18px rgba(47, 36, 31, 0.18);
+  border-top: 1px solid #DFD5C8;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Trifold Fold Crease & Paper Shadow */
+.trifold-fold-divider {
+  position: relative;
+  height: 28px;
+  margin: 1.5rem auto;
+  max-width: 48rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trifold-fold-divider::before {
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(216, 200, 182, 0.4) 10%,
+    rgba(140, 28, 46, 0.3) 30%,
+    rgba(140, 28, 46, 0.6) 50%,
+    rgba(140, 28, 46, 0.3) 70%,
+    rgba(216, 200, 182, 0.4) 90%,
+    transparent 100%
+  );
+  border-top: 1px dashed rgba(140, 28, 46, 0.5);
+}
+.trifold-fold-divider::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 5%;
+  right: 5%;
+  height: 8px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(47, 36, 31, 0.08) 0%, transparent 75%);
+  pointer-events: none;
+}
+
+/* Ruled Stationery Input Lines (Like handwritten letter paper) */
+.ruled-stationery-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #D6C8B6;
+  border-radius: 0;
+  padding: 0.6rem 0.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: #2F241F;
+  width: 100%;
+  transition: all 0.25s ease;
+}
+.ruled-stationery-input:focus {
+  outline: none;
+  border-bottom: 2px solid #8C1C2E;
+  background-color: rgba(140, 28, 46, 0.02);
+}
+.ruled-stationery-input::placeholder {
+  color: #A39688;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* Vintage Semi-translucent Washi Paper Tape */
+.washi-tape {
+  width: 70px;
+  height: 20px;
+  background: rgba(226, 214, 194, 0.75);
+  backdrop-filter: blur(1px);
+  border-left: 2px dashed rgba(160, 140, 120, 0.4);
+  border-right: 2px dashed rgba(160, 140, 120, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  z-index: 20;
+  transform: rotate(-3deg);
+}
+
+/* Photo Mounting Corner Tabs */
+.photo-mounting-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #8C1C2E;
+  opacity: 0.85;
+  z-index: 10;
+  pointer-events: none;
+}
+.photo-mounting-corner.top-left {
+  top: 6px;
+  left: 6px;
+  border-right: none;
+  border-bottom: none;
+}
+.photo-mounting-corner.top-right {
+  top: 6px;
+  right: 6px;
+  border-left: none;
+  border-bottom: none;
+}
+.photo-mounting-corner.bottom-left {
+  bottom: 6px;
+  left: 6px;
+  border-right: none;
+  border-top: none;
+}
+.photo-mounting-corner.bottom-right {
+  bottom: 6px;
+  right: 6px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Postal Docket / Kupon Perhelatan Ticket Card */
+.invitation-docket {
+  background-color: #FDFBF7;
+  border: 1px solid #DFD5C8;
+  border-radius: 3px;
+  box-shadow: 0 4px 16px rgba(47, 36, 31, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+.docket-perforation-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-right: 2px dashed #D6C8B6;
+}
+.docket-notch-top {
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #EAE1D5;
+  border: 1px solid #DFD5C8;
+  box-shadow: inset 0 2px 4px rgba(47, 36, 31, 0.12);
+  z-index: 10;
+}
+.docket-notch-bottom {
+  position: absolute;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #EAE1D5;
+  border: 1px solid #DFD5C8;
+  box-shadow: inset 0 -2px 4px rgba(47, 36, 31, 0.12);
+  z-index: 10;
+}
+
+/* Postal Money Order / Slip Wesel Pos */
+.postal-money-order {
+  background-color: #FFFDF9;
+  border: 2px solid #8C1C2E;
+  outline: 3px solid #EAE1D5;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(47, 36, 31, 0.09);
+}
+.postal-money-order::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed #D6C8B6;
+  pointer-events: none;
+}
+.postal-frank-stamp {
+  font-family: 'Courier Prime', monospace;
+  border: 2px solid #8C1C2E;
+  color: #8C1C2E;
+  padding: 2px 8px;
+  font-size: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transform: rotate(-5deg);
+  display: inline-block;
+  opacity: 0.9;
+}
+
+/* Texture Utilities for other variants */
+.pebble-card {
+  background-color: var(--color-wedding-paper);
+  border-radius: 2rem;
+  border: 1px solid var(--color-wedding-sand);
+  box-shadow: 0 10px 30px -5px rgba(44, 42, 41, 0.05);
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 7s ease-in-out infinite;
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
 @keyframes ripple {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(2.5);
-    opacity: 0;
-  }
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0; }
 }
 
 .animate-ripple {
-  animation: ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation: ripple 2.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(144, 58, 71, 0.5); /* Using the Soft Burgundy gold equivalent */
+  background-color: rgba(140, 28, 46, 0.3);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(144, 58, 71, 0.8);
-}
-/* Theme Overrides */
-.theme-modern {
-  --color-wedding-gold: #ffffff;
-  --color-wedding-cream: #1a1a1a;
-  --color-wedding-sage: #333333;
+  background-color: rgba(140, 28, 46, 0.6);
 }
 
-.theme-modern body {
-  @apply bg-stone-900 text-stone-100;
+/* ========================================================
+   THEME 4: THE BOARDING PASS & PASSPORT UTILITIES
+   ======================================================== */
+.boardingpass-texture {
+  background-color: #14213D;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(226, 183, 85, 0.05) 0%, transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
 }
 
-.theme-modern .glass-card {
-  @apply bg-stone-800/70 border-stone-700/50;
+.boardingpass-ticket {
+  background: #FAF8F5;
+  color: #1A2634;
+  border-radius: 18px;
+  box-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
-.theme-sage {
-  --color-wedding-cream: #f4f7f1;
+/* Notches for ticket perforated tear effect */
+.ticket-notch-left {
+  position: absolute;
+  top: 50%;
+  left: -14px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-wedding-cream);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: inset -3px 0 5px rgba(0, 0, 0, 0.12);
+  z-index: 10;
 }
 
-.theme-sage body {
-  @apply bg-[#f4f7f1];
+.ticket-notch-right {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-wedding-cream);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.12);
+  z-index: 10;
 }
 
-.theme-sage .text-wedding-gold {
-  @apply text-wedding-sage;
+/* Airport departure split flap display styling */
+.split-flap-tile {
+  background: linear-gradient(180deg, #1C232E 0%, #151A22 49%, #0B0E13 51%, #1A212A 100%);
+  border: 1px solid #323E4D;
+  border-radius: 6px;
+  color: #E2B755;
+  font-family: 'Share Tech Mono', 'Courier Prime', monospace;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 4px 8px rgba(0,0,0,0.4);
+}
+.split-flap-tile::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.theme-sage .border-wedding-gold {
-  @apply border-wedding-sage;
+/* Immigration / Visa Stamp */
+.visa-stamp {
+  border: 2px dashed #E2B755;
+  border-radius: 8px;
+  padding: 6px 12px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  color: #E2B755;
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.15em;
+  transform: rotate(-4deg);
+  background: rgba(226, 183, 85, 0.08);
+  box-shadow: 0 0 12px rgba(226, 183, 85, 0.2);
 }
 
-.theme-sage .bg-wedding-gold {
-  @apply bg-wedding-sage;
+.visa-stamp-red {
+  border: 2px solid #D63031;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  color: #D63031;
+  font-family: 'Courier Prime', monospace;
+  font-size: 7px;
+  transform: rotate(6deg);
+  background: rgba(214, 48, 49, 0.06);
+  opacity: 0.9;
 }
 
-.theme-burgundy {
-  --color-wedding-cream: #fff9f9;
+/* Passport Cover Styling */
+.passport-cover {
+  background: linear-gradient(135deg, #101B2B 0%, #0B131F 100%);
+  border: 1px solid #2B3A4F;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
-.theme-burgundy body {
-  @apply bg-[#fff9f9];
+/* Luggage Tag Styling */
+.luggage-tag {
+  background: #FAF8F5;
+  border: 2px solid #D6C8B6;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+.luggage-tag-hole {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-wedding-cream);
+  border: 3px solid #C5A059;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.theme-burgundy .text-wedding-gold {
-  @apply text-wedding-burgundy;
+/* ========================================================
+   THEME 2: THE NEWSPAPER (THE WEDDING GAZETTE) UTILITIES
+   ======================================================== */
+.gazette-texture {
+  background-color: #F4EFE6;
+  background-image: radial-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
 }
 
-.theme-burgundy .border-wedding-gold {
-  @apply border-wedding-burgundy;
+.newspaper-card {
+  background: #FFFFFF;
+  border: 1px solid #111111;
+  box-shadow: 4px 6px 0px #111111;
+  position: relative;
 }
 
-.theme-burgundy .bg-wedding-gold {
-  @apply bg-wedding-burgundy;
+.newspaper-double-border {
+  border-top: 4px double #111111;
+  border-bottom: 4px double #111111;
 }
+
+.coupon-border {
+  border: 2px dashed #111111;
+  position: relative;
+  background: #FFFDF9;
+}
+
+/* ========================================================
+   THEME 7: 35MM FILMSTRIP CINEMA UTILITIES
+   ======================================================== */
+.filmstrip-texture {
+  background-color: #0A0A0A;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.film-sprockets-top, .film-sprockets-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  background: #000;
+  gap: 8px;
+}
+
+.sprocket-hole {
+  width: 12px;
+  height: 8px;
+  background: #FAF8F5;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.cinema-gold-ticket {
+  background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
+  border: 2px solid #D4AF37;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+  color: #F5F5F4;
+}
+
+/* ========================================================
+   THEME STYLES (Supports all 4 Radically Distinct Variants)
+   ======================================================== */
+
+/* 1. Theme: The Trifold Wax Letter (Primary Active Choice) */
+.theme-trifold {
+  --color-wedding-gold: #8C1C2E;
+  --color-wedding-cream: #EAE1D5;
+  --color-wedding-paper: #FDFBF7;
+  --color-wedding-charcoal: #2F241F;
+}
+.theme-trifold body {
+  background-color: #EAE1D5;
+  color: #2F241F;
+  font-family: "EB Garamond", serif;
+}
+
+/* 2. Theme: The Broadsheet Newspaper */
+.theme-newspaper {
+  --color-wedding-gold: #8C2A3E;
+  --color-wedding-cream: #F4EFE6;
+  --color-wedding-paper: #FFFFFF;
+  --color-wedding-charcoal: #111111;
+}
+.theme-newspaper body {
+  background-color: #F4EFE6;
+  color: #111111;
+  font-family: "Newsreader", serif;
+}
+
+/* 3. Theme: The Wedding Boarding Pass */
+.theme-boardingpass {
+  --color-wedding-gold: #E2B755;
+  --color-wedding-cream: #14213D;
+  --color-wedding-paper: #FAF8F5;
+  --color-wedding-charcoal: #1A2634;
+}
+.theme-boardingpass body {
+  background-color: #14213D;
+  color: #F4F4F6;
+  font-family: "Jost", sans-serif;
+}
+
+/* 4. Theme: The 35mm Filmstrip Cinema */
+.theme-filmstrip {
+  --color-wedding-gold: #D4AF37;
+  --color-wedding-cream: #0A0A0A;
+  --color-wedding-paper: #141414;
+  --color-wedding-charcoal: #E0E0E0;
+}
+.theme-filmstrip body {
+  background-color: #0A0A0A;
+  color: #E0E0E0;
+  font-family: "Courier Prime", monospace;
+}
+
+/* Sacred Verse Epistolary Typography (Accepted Variant 3) */
+.typeset-verse {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.typeset-verse .verse-arabic {
+  font-size: 1.3rem;
+  line-height: 2.25;
+}
+.typeset-verse .verse-quote {
+  font-size: 0.925rem;
+  line-height: 1.8;
+  letter-spacing: 0.015em;
+}
+
+/* Couple Scrapbook Staggered Layout (Accepted Variant 1) */
+.couple-scrapbook-grid {
+  gap: 1.8rem;
+}
+.couple-scrapbook-grid .groom-wrap {
+  transform: rotate(-2deg);
+}
+.couple-scrapbook-grid .bride-wrap {
+  transform: rotate(2deg);
+}
+@media (min-width: 640px) {
+  .couple-scrapbook-grid .groom-wrap {
+    margin-top: -0.4rem;
+  }
+  .couple-scrapbook-grid .bride-wrap {
+    margin-top: 2rem;
+  }
+}
+
+/* Gallery Pinboard Scrapbook Layout (Accepted Variant 2) */
+.gallery-pinboard-grid {
+  gap: 1.2rem;
+}
+
+/* Quieter Epistolary Footer (Accepted Variant 1) */
+.footer-quieter-1 {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* Tactile Postal Bureau RSVP Cards (Accepted Variant 1) */
+.rsvp-overdrive-1 .trifold-letter-card {
+  box-shadow: 0 16px 36px rgba(47, 36, 31, 0.12), inset 0 0 40px rgba(140, 28, 46, 0.02);
+}
+
+/* Animated Interactive Postal Stamp (Accepted Variant 3) */
+.stamp-anim-3 .postage-stamp-box {
+  box-shadow: 0 0 0 1px rgba(140, 28, 46, 0.2);
+  transition: all 0.3s ease;
+}
+.stamp-anim-3:hover .postage-stamp-box {
+  box-shadow: 0 0 12px rgba(140, 28, 46, 0.25), 0 0 0 2px rgba(140, 28, 46, 0.4);
+  transform: scale(1.05);
+}
+
+
+
+
+
 
