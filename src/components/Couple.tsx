@@ -10,7 +10,7 @@ interface CoupleProps {
 export default function Couple({ couple, settings }: CoupleProps) {
   // Envelope / Trifold Wax Letter: Fold 2 - Warkat Kedua (Doa & Kisah Kasih)
   return (
-    <section id="fold-2-couple" className="py-16 px-4 max-w-5xl mx-auto relative parchment-texture">
+    <section id="section-couple" className="py-16 px-4 max-w-5xl mx-auto relative parchment-texture">
       {/* Letter Fold 2: Sacred Invocation & Love Letter Excerpt */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

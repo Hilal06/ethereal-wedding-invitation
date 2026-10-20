@@ -758,6 +758,82 @@
   transform: scale(1.05);
 }
 
+/* ========================================================
+   MINIATURE POSTAGE STAMP NAVIGATION (Mobile Dock)
+   ======================================================== */
+.stamp-dock-strip {
+  background-color: rgba(253, 251, 247, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid #DFD5C8;
+  border-radius: 6px;
+  box-shadow: 
+    0 4px 6px -1px rgba(47, 36, 31, 0.08),
+    0 12px 28px -4px rgba(47, 36, 31, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-postage-stamp {
+  flex: 1;
+  max-width: 54px;
+  min-width: 0;
+  height: 56px;
+  background-color: #FAF6F0;
+  border: 1.5px dashed #D6C8B6;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 1.5px 2.5px 1.5px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 1px 2px 4px rgba(47, 36, 31, 0.06);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mini-postage-stamp:active {
+  transform: scale(0.92);
+}
+
+.mini-postage-stamp.active-stamp {
+  background-color: #8C1C2E;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 4px 12px rgba(140, 28, 46, 0.35),
+    0 1px 3px rgba(47, 36, 31, 0.15);
+  transform: translateY(-4px);
+}
+
+.mini-postage-stamp.active-stamp .stamp-label {
+  color: #FFD8DE;
+}
+
+.stamp-postmark-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Scrapbook Sheet Folio transitions */
+.scrapbook-sheet-card {
+  background-color: #FDFBF7;
+  border: 1px solid #DFD5C8;
+  box-shadow: 
+    0 2px 8px rgba(47, 36, 31, 0.08),
+    0 12px 24px -6px rgba(47, 36, 31, 0.12);
+  border-radius: 4px;
+}
+
+
 
 
 

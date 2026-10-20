@@ -76,7 +76,7 @@ export default function Gift({ gifts }: GiftProps) {
 
   // Envelope / Trifold Wax Letter: Warkat Titipan (Tanda Kasih & Kado)
   return (
-    <section className="py-16 px-4 parchment-texture">
+    <section id="section-gift" className="py-16 px-4 parchment-texture">
       <div className="max-w-4xl mx-auto">
         {/* Header Letter Voucher */}
         <div className="trifold-letter-card p-6 sm:p-8 mb-8 text-center">

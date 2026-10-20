@@ -53,7 +53,7 @@ export default function Hero({
 
   // Envelope / Trifold Wax Letter: Fold 1 - The Letterhead & Official Royal Dispatch
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16 parchment-texture overflow-hidden">
+    <section id="section-hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16 parchment-texture overflow-hidden">
       {/* Top Airmail Ribbon Decorative Edge */}
       <div className="airmail-ribbon fixed top-0 left-0 right-0 z-30 opacity-90" />
 
@@ -182,7 +182,7 @@ export default function Hero({
         <div className="trifold-fold-divider" />
         <motion.div
           onClick={() => {
-            const el = document.getElementById('fold-2-couple');
+            const el = document.getElementById('section-couple') || document.getElementById('fold-2-couple');
             if (el) {
               el.scrollIntoView({ behavior: 'smooth' });
             } else {

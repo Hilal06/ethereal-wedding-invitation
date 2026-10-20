@@ -126,8 +126,13 @@ export default function WelcomeOverlay({
         transition={{ delay: 0.35, duration: 0.9 }}
         className="relative z-10 w-full max-w-sm trifold-letter-card p-6 md:p-8 my-auto overflow-hidden shadow-2xl border-2 border-[#D6C8B6]"
       >
-        {/* Top Envelope Flap Triangle */}
-        <div className="envelope-v-flap" />
+        {/* Top Envelope Flap Triangle with 3D Unsealing Animation */}
+        <motion.div
+          animate={isOpening ? { rotateX: -120, opacity: 0.3 } : {}}
+          transition={{ duration: 0.4 }}
+          style={{ transformOrigin: 'top center' }}
+          className="envelope-v-flap"
+        />
 
         {/* Envelope Flap Fold Line with Tactile Wax Seal */}
         <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20">
@@ -176,7 +181,7 @@ export default function WelcomeOverlay({
             className="w-full py-3.5 px-6 bg-[#8C1C2E] hover:bg-[#681321] text-[#FDFBF7] rounded-sm font-serif text-xs uppercase tracking-[0.25em] font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
           >
             <Sparkles size={14} className="text-[#E2B755]" />
-            <span>Buka &amp; Baca Surat Undangan &rarr;</span>
+            <span>Buka Warkat Surat Resmi &rarr;</span>
           </button>
           {isLoading && (
             <p className="text-[9px] font-mono text-stone-400 mt-2 italic tracking-wider">

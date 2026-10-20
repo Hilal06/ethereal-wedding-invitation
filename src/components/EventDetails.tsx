@@ -46,7 +46,7 @@ export default function EventDetails({ events, groomName = "Rifaul", brideName =
 
   // Envelope / Trifold Wax Letter: Fold 3 - Warkat Ketiga (Jadwal & Lokasi Resmi)
   return (
-    <section className="py-16 px-4 relative parchment-texture">
+    <section id="section-events" className="py-16 px-4 relative parchment-texture">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -167,7 +167,7 @@ export default function EventDetails({ events, groomName = "Rifaul", brideName =
                     className="w-full py-2.5 px-3 bg-[#8C1C2E] hover:bg-[#701524] text-white rounded-xs font-mono text-[9.5px] uppercase tracking-wider font-bold transition-all duration-300 flex items-center justify-center gap-1.5 shadow-xs"
                   >
                     <Navigation size={12} />
-                    <span>PETUNJUK ARAH MAPS</span>
+                    <span>PANDUAN RUTE &amp; LOKASI</span>
                     <ExternalLink size={10} className="opacity-75" />
                   </a>
                 )}
